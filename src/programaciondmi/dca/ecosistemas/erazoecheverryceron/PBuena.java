@@ -1,5 +1,7 @@
 package programaciondmi.dca.ecosistemas.erazoecheverryceron;
 
+import programaciondmi.dca.core.EspecieAbstracta;
+
 public class PBuena extends PlantaPapu {
 
 	
@@ -22,6 +24,12 @@ public class PBuena extends PlantaPapu {
 		
 		app.image(image, x, y);
 		
+	}
+
+	@Override
+	public boolean recibirDano(EspecieAbstracta lastimador) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

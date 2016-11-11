@@ -1,5 +1,7 @@
 package programaciondmi.dca.ecosistemas.erazoecheverryceron;
 
+import programaciondmi.dca.core.EspecieAbstracta;
+
 public class PMala extends PlantaPapu {
 
 	private boolean venom;
@@ -48,6 +50,12 @@ public class PMala extends PlantaPapu {
 		
 		app.image(image, x, y); 
 		
+	}
+
+	@Override
+	public boolean recibirDano(EspecieAbstracta lastimador) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 
