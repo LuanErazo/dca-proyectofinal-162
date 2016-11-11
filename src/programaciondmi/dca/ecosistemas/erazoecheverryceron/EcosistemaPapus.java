@@ -121,7 +121,7 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 		PImage mala = CargaDatos.botonPlantaMala;
 		antiCamMov();
 		int desfasesX = 225;
-		float desfaceY = app.height / 3;
+		int desfaceY = app.height / 3;
 		int pMalaX = camX - desfasesX;
 		float pMalaY = camY + desfaceY;
 		int pBuenaX = camX + desfasesX;
