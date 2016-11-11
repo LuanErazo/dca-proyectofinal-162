@@ -23,5 +23,8 @@ public class Ejecutable extends PApplet {
 		mundo.dibujar();
 	}
 	
-	
+
+	public void mousePressed(){
+		mundo.click();
+	}
 }
