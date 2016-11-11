@@ -9,9 +9,8 @@ public class Ejecutable extends PApplet {
 	}
 	
 	public void settings(){
-		//fullScreen();
-//		fullScreen();
-		size(500, 500);
+		fullScreen();
+//		size(500, 500);
 	}
 	
 	public void setup(){
@@ -22,5 +21,9 @@ public class Ejecutable extends PApplet {
 	public void draw(){
 		background(255);
 		mundo.dibujar();
+	}
+	
+	public void mousePressed(){
+		mundo.click();
 	}
 }
