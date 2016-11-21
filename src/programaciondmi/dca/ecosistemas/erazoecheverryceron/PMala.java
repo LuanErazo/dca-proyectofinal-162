@@ -42,8 +42,7 @@ public class PMala extends PlantaPapu {
 		
 		damages[0] = damAtk;
 		damages[1] = damDef;
-		damages[2] = damVel;
-		
+		damages[2] = damVel;		
 	}
 	
 	public void dibujar() {
@@ -56,6 +55,34 @@ public class PMala extends PlantaPapu {
 	public boolean recibirDano(EspecieAbstracta lastimador) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public float chooseDamage(){
+		return damages[(int) app.random(3)];
+		
+	}
+	
+	
+	// ========================================== Getters and Setters ================================
+
+	public float getToxic(){
+		if (venom) {
+			return toxic;
+		} else {
+			return 0;
+		}
+	}
+	
+	public float getDamAtk() {
+		return damAtk;
+	}
+
+	public float getDamDef() {
+		return damDef;
+	}
+
+	public float getDamVel() {
+		return damVel;
 	}
 	
 
