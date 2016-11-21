@@ -13,8 +13,6 @@ public class PBuena extends PlantaPapu {
 
 	public PBuena() {
 		image = CargaDatos.PBuena;
-		// oWith = image.width;
-		// oHeight = image.height;
 
 		cure = (float) (Math.random() * 20);
 		buffAtk = (float) (Math.random() * 10);
@@ -26,8 +24,15 @@ public class PBuena extends PlantaPapu {
 		buffos[1] = buffDef;
 		buffos[2] = buffVel;
 		
-		oWith = image.width / 2;
-		oHeight = image.height / 2;
+//		oWith = CargaDatos.PBuena.width / 2;
+//		oHeight = CargaDatos.PBuena.height / 2;
+		
+		
+		if (Math.random() > 0.5f) {
+			curing = true;
+		} else {
+			curing = false;
+		}
 	}
 
 	public PBuena(int x, int y) {
@@ -44,25 +49,37 @@ public class PBuena extends PlantaPapu {
 		buffos[1] = buffDef;
 		buffos[2] = buffVel;
 
-		oWith = image.width/2;
-		oHeight = image.height/2;
+		
+		if (Math.random() > 0.5f) {
+			curing = true;
+		} else {
+			curing = false;
+		}
+		
+//		oWith = CargaDatos.PBuena.width/2;
+//		oHeight = CargaDatos.PBuena.height/2;
 		
 	}
 
 	public void dibujar() {
 
-		app.image(image, x, y, oWith, oHeight);
+		app.image(image, x, y);
 	}
 
-	@Override
-	public boolean recibirDano(EspecieAbstracta lastimador) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	public float chooseBuff() {
-		return buffos[(int) app.random(3)];
+
+	public float chooseBuff(int i) {
+		return buffos[i];
 
 	}
+
+	public float getCure() {
+		if (curing) {
+			return cure;			
+		}
+		return 0;
+	}
+	
+	
 
 }

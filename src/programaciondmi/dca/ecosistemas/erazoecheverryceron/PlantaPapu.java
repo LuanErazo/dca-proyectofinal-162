@@ -8,6 +8,7 @@ import processing.core.PConstants;
 import processing.core.PImage;
 import processing.core.PShape;
 import processing.core.PVector;
+import programaciondmi.dca.core.EspecieAbstracta;
 import programaciondmi.dca.core.PlantaAbstracta;
 import programaciondmi.dca.ejecucion.Mundo;
 
@@ -23,19 +24,21 @@ public abstract class PlantaPapu extends PlantaAbstracta {
 	protected int oWith;
 	protected int oHeight;
 	protected long sleeping;
+	private int ciclo;
 
 	public PlantaPapu() {
 		app = Mundo.ObtenerInstancia().getApp();
 		fondo = app.loadShape("global_data/mapa.svg");
-		x = (int) (Math.random() * (fondo.width-50))- app.width/2;
-		y = (int) (Math.random() * (fondo.height-50)) - app.height/2;
+		x = (int) (Math.random() * (fondo.width - 50)) - app.width / 2;
+		y = (int) (Math.random() * (fondo.height - 50)) - app.height / 2;
 		sleeping = 20;
 		pos = new PVector(x, y);
 		contCrecer = 1;
 		vive = true;
+		vida = 200;
 
 	}
-	
+
 	public PlantaPapu(int x, int y) {
 		super(x, y);
 		app = EcosistemaPapus.app;
@@ -45,6 +48,7 @@ public abstract class PlantaPapu extends PlantaAbstracta {
 		pos = new PVector(x, y);
 		contCrecer = 1;
 		vive = true;
+		vida = 200;
 
 	}
 
@@ -52,9 +56,10 @@ public abstract class PlantaPapu extends PlantaAbstracta {
 	public void run() {
 		while (vive) {
 			try {
-//				crecer();
+				// crecer();
 				Thread.sleep(sleeping);
 				contCrecer += 0.5f;
+				ciclo++;
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -67,15 +72,44 @@ public abstract class PlantaPapu extends PlantaAbstracta {
 			image.resize((int) (oWith * contCrecer), (int) (oHeight * contCrecer));
 		}
 	}
-	
-	protected void muerto(LinkedList<PlantaAbstracta> lista, PlantaAbstracta planta){
-		
-		
+
+	public void muerto(LinkedList<PlantaAbstracta> lista, PlantaAbstracta planta) {
+		PlantaPapu plant = (PlantaPapu) planta;
+		if (plant.isVive() == false) {
+			lista.remove(planta);			
+		}
 	}
 
-	public void muerto(ArrayList<PlantaAbstracta> list, PlantaAbstracta planta) {
-
+	@Override
+	public boolean recibirDano(EspecieAbstracta lastimador) {
+		HerviboroPapu hervi = (HerviboroPapu) lastimador;
+		if (EcosistemaPapus.validar(pos.x, pos.y, hervi.getPos().x, hervi.getPos().y, 10)) {
+			vida -= 2;
+			return true;
+		}
+		return false;
 	}
 
+	// ============================== getters and setters
+	// =================================================
+
+	public float getVida() {
+		return vida;
+	}
+
+	public void setVida(float vida) {
+		this.vida = vida;
+	}
+
+	public boolean isVive() {
+		return vive;
+	}
+
+	public void setVive(boolean vive) {
+		this.vive = vive;
+	}
+
+	public PVector getPos() {
+		return pos;
+	}
 }
- 

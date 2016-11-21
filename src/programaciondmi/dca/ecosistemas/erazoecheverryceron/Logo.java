@@ -11,8 +11,10 @@ public class Logo extends LogoAbstracto {
 
 	@Override
 	public void click() {
-		// TODO Auto-generated method stub
 		
+		EcosistemaPapus eco = (EcosistemaPapus) ecosistema;
+		System.out.println("Hizo click el ecosistema"+eco);
+			
 	}
 
 }

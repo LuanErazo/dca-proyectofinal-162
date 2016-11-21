@@ -26,6 +26,12 @@ public class PMala extends PlantaPapu {
 		damages[1] = damDef;
 		damages[2] = damVel;
 		
+		if (Math.random() > 0.5f) {
+			venom = true;
+		} else {
+			venom = false;
+		}
+		
 	}
 	
 	public PMala(int x, int y) {
@@ -42,7 +48,13 @@ public class PMala extends PlantaPapu {
 		
 		damages[0] = damAtk;
 		damages[1] = damDef;
-		damages[2] = damVel;		
+		damages[2] = damVel;	
+		
+		if (Math.random() > 0.5f) {
+			venom = true;
+		} else {
+			venom = false;
+		}
 	}
 	
 	public void dibujar() {

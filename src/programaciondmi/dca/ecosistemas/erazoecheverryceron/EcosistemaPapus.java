@@ -1,5 +1,6 @@
 package programaciondmi.dca.ecosistemas.erazoecheverryceron;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,23 +24,21 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	private CargaDatos datos;
 	private int camX;
 	private int camY;
-	private LinkedList<PlantaAbstracta> plantasIniciales;
 	private LinkedList<PlantaAbstracta> agregarPlantas;
+	private LinkedList<EspecieAbstracta> especies;
 
 	/**
 	 * Constructor
 	 */
 	public EcosistemaPapus() {
-//		Mundo ref = Mundo.ObtenerInstancia();
-//		Logo boton= new Logo("../data/botonPlantaBuena.png", this);
-//		ref.agregarBoton(boton);
-		
+		// Mundo ref = Mundo.ObtenerInstancia();
+		// Logo boton= new Logo("../data/botonPlantaBuena.png", this);
+		// ref.agregarBoton(boton);
+
 		app = Mundo.ObtenerInstancia().getApp();
 		datos = new CargaDatos();
 		app.imageMode(PConstants.CENTER);
-		agregarPlantas = new LinkedList<PlantaAbstracta>();
 
-		
 		poblarPlantas();
 		CargaHilosPrimeros();
 	}
@@ -48,9 +47,9 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	 * Ejecuta las primeras plantas desde sus hilos
 	 */
 	private void CargaHilosPrimeros() {
-		for (PlantaAbstracta plantaAbstracta : plantasIniciales) {
-			Thread plantita = new Thread(plantaAbstracta);
-			plantita.start();
+		for (EspecieAbstracta especieAbstracta : especies) {
+			Thread especie = new Thread(especieAbstracta);
+			especie.start();
 		}
 	}
 
@@ -70,47 +69,50 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	 */
 	@Override
 	public void dibujar() {
-		for (PlantaAbstracta planta : plantasIniciales) {
-			planta.dibujar();
-		}
+
 		for (PlantaAbstracta planta : agregarPlantas) {
 			planta.dibujar();
 		}
-		synchronized (especies) {
-			Iterator<EspecieAbstracta> iteradorEspecies = especies.iterator();
-			while(iteradorEspecies.hasNext()){
-				EspecieAbstracta actual = iteradorEspecies.next();
-				actual.dibujar();
+		for (EspecieAbstracta especie : especies) {
+			especie.dibujar();
+			if (especie instanceof HerviboroPapu) {
+				for (int i = 0; i < agregarPlantas.size(); i++) {				
+					((HerviboroPapu) especie).comerPlanta(agregarPlantas.get(i));
+				}
 			}
 		}
 		generarPlantas();
-		
+
 	}
 
 	/**
 	 * Pobla con las primeras especies el lienzo
 	 */
+
 	@Override
 	protected LinkedList<EspecieAbstracta> poblarEspecies() {
-		LinkedList<EspecieAbstracta> especies = new LinkedList<EspecieAbstracta>();
-		EspeciePapu nueva = new EspeciePapu(this);
-		especies.add(nueva);		
-		nueva = new EspeciePapu(this);
-		especies.add(nueva);		
+		especies = new LinkedList<EspecieAbstracta>();
+		EspeciePapu nueva = new HerviboroPapu(this);
+		especies.add(nueva);
+		nueva = new HerviboroPapu(this);
+		especies.add(nueva);
 		return especies;
 	}
-
+	
 	/**
 	 * Pobla con las plantas iniciales el lienzo
 	 */
+
 	@Override
 	protected LinkedList<PlantaAbstracta> poblarPlantas() {
-		plantasIniciales = new LinkedList<PlantaAbstracta>();
+		agregarPlantas = new LinkedList<PlantaAbstracta>();
+		LinkedList<PlantaAbstracta> plantasIniciales = new LinkedList<PlantaAbstracta>();
 		for (int i = 0; i < 10; i++) {
 			plantasIniciales.add(new PMala());
 			plantasIniciales.add(new PBuena());
 
 		}
+		agregarPlantas.addAll(plantasIniciales);
 		return plantasIniciales;
 	}
 
@@ -121,22 +123,20 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 
 	@Override
 	protected List<PlantaAbstracta> generarPlantas() {
-		if (app.mousePressed) {
-//			antiCamMov();
-			agregarPlantas.add(new PBuena(app.mouseX - ((app.width / 2)), app.mouseY - ((app.height / 2))));
+		antiCamMov();
+		if (app.mousePressed && (app.mouseButton == PConstants.LEFT)) {
+			agregarPlantas
+					.add(new PBuena(app.mouseX - ((app.width / 2) - camX), app.mouseY - ((app.height / 2) - camY)));
+
+		} else if (app.mousePressed && (app.mouseButton == PConstants.RIGHT)) {
+
+			agregarPlantas
+					.add(new PMala(app.mouseX - ((app.width / 2) - camX), app.mouseY - ((app.height / 2) - camY)));
+
 		}
 		return agregarPlantas;
 	}
 
-
-
-	private void crearPlantas() {
-		if (app.mousePressed) {
-			System.out.println("entra");
-			agregarPlantas.add(new PBuena(app.mouseX - ((app.width / 2) - camX), app.mouseY - ((app.height / 2)) - camY));
-		}
-	}
-	
 	private void antiCamMov() {
 
 		if (app.mouseX < app.width / 4) {
@@ -150,12 +150,11 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 			camY--;
 
 		}
-		if (app.mouseX < 3 * app.height / 4) {
+		if (app.mouseX < 3 * app.height / 4 && app.mouseY < app.height - 100) {
 			camY++;
 
 		}
 	}
-
 
 	public static boolean validar(float XUno, float YUno, float XDos, float YDos, float distancia) {
 		if (PApplet.dist(XUno, YUno, XDos, YDos) <= distancia)
