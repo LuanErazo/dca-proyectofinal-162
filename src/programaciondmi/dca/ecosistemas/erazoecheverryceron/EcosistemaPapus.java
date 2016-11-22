@@ -69,6 +69,7 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	 */
 	@Override
 	public void dibujar() {
+		antiCamMov();
 
 		for (PlantaAbstracta planta : agregarPlantas) {
 			planta.dibujar();
@@ -123,7 +124,6 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 
 	@Override
 	protected List<PlantaAbstracta> generarPlantas() {
-		antiCamMov();
 		if (app.mousePressed && (app.mouseButton == PConstants.LEFT)) {
 			agregarPlantas
 					.add(new PBuena(app.mouseX - ((app.width / 2) - camX), app.mouseY - ((app.height / 2) - camY)));
