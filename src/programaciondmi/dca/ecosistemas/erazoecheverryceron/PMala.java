@@ -63,11 +63,6 @@ public class PMala extends PlantaPapu {
 		
 	}
 
-	@Override
-	public boolean recibirDano(EspecieAbstracta lastimador) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
 	public float chooseDamage(){
 		return damages[(int) app.random(3)];
@@ -85,18 +80,4 @@ public class PMala extends PlantaPapu {
 		}
 	}
 	
-	public float getDamAtk() {
-		return damAtk;
-	}
-
-	public float getDamDef() {
-		return damDef;
-	}
-
-	public float getDamVel() {
-		return damVel;
-	}
-	
-
-
 }

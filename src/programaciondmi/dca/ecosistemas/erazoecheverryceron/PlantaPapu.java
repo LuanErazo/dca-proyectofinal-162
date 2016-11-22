@@ -75,17 +75,26 @@ public abstract class PlantaPapu extends PlantaAbstracta {
 
 	public void muerto(LinkedList<PlantaAbstracta> lista, PlantaAbstracta planta) {
 		PlantaPapu plant = (PlantaPapu) planta;
+
+		if (ciclo % 60 * 2 == 0) {
+			vida -= 2;
+		}
+		if (vida < 0) {
+			vive = false; 
+		}
+
 		if (plant.isVive() == false) {
-			lista.remove(planta);			
+			lista.remove(planta);
 		}
 	}
 
 	@Override
 	public boolean recibirDano(EspecieAbstracta lastimador) {
-		HerviboroPapu hervi = (HerviboroPapu) lastimador;
-		if (EcosistemaPapus.validar(pos.x, pos.y, hervi.getPos().x, hervi.getPos().y, 10)) {
-			vida -= 2;
-			return true;
+		if (lastimador instanceof HerviboroPapu) {
+			HerviboroPapu hervi = (HerviboroPapu) lastimador;
+			if (EcosistemaPapus.validar(pos.x, pos.y, hervi.getPos().x, hervi.getPos().y, 50)) {
+				return true;
+			}
 		}
 		return false;
 	}

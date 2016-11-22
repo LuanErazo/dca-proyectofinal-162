@@ -6,6 +6,7 @@ import programaciondmi.dca.core.EspecieAbstracta;
 import programaciondmi.dca.core.PlantaAbstracta;
 import programaciondmi.dca.core.interfaces.IApareable;
 import programaciondmi.dca.core.interfaces.IHerbivoro;
+import programaciondmi.dca.ecosistemas.sarmientomanzanomoncada.HijoBlanco;
 
 public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable {
 
@@ -20,11 +21,19 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 		velocidad = 3;
 
 	}
+	
+	@Override
+	public void dibujar() {
+		app.fill(50,200,199);
+		app.ellipse(pos.x, pos.y, 50, 50);
+	}
 
 	@Override
 	public EspecieAbstracta aparear(IApareable apareable) {
-		// TODO Auto-generated method stub
-		return null;
+		HerviboroPapu hijo = new HerviboroPapu(ecosistema);
+		hijo.setPos(pos);
+		ecosistema.agregarEspecie(hijo);
+		return hijo;
 	}
 
 	@Override
@@ -38,8 +47,17 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 			dir = PVector.sub(target, pos);
 			if (tx != null) {
 				if (EcosistemaPapus.validar(pos.x, pos.y, tx.x, tx.y, 100)) {
-					System.out.println("entro ciclo");
 					dir = PVector.sub(tx, pos);
+				}
+				for (int i = 0; i < ecosistema.getEspecies().size(); i++) {
+					EspeciePapu papu = (EspeciePapu) ecosistema.getEspecies().get(i);
+					if (papu instanceof IApareable) {
+						if (EcosistemaPapus.validar(pos.x, pos.y, papu.getPos().x, papu.getPos().y, 100)) {
+							tx = papu.getPos();
+							dir = PVector.sub(tx, dir);
+							System.out.println("pareja >:V");
+						}
+					}
 				}
 			}
 			dir.normalize();
@@ -49,15 +67,45 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 				pos = tx;
 			} else {
 				pos.add(dir);
-				
 			}
+
+	}
+	
+	private void apareable(){
+		if (ecosistema.getEspecies().size() > 0) {			
+			for (int i = 0; i < ecosistema.getEspecies().size(); i++) {
+				EspeciePapu papu = (EspeciePapu) ecosistema.getEspecies().get(i);
+				if (this != papu && papu != null) {
+					if (papu instanceof IApareable) {
+						if (EcosistemaPapus.validar(pos.x, pos.y, papu.getPos().x, papu.getPos().y, 20)) {
+							aparear((IApareable) papu);
+						}
+					}				
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void run() {
+		while (vida > 0) {
+			mover();
+			enfermarse();
+			apareable();
+			try {
+				Thread.sleep(33);
+				ciclo++;
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
 
 	}
 
 	@Override
 	public void comerPlanta(PlantaAbstracta victima) {
 		PlantaPapu planta = (PlantaPapu) victima;
-		if (EcosistemaPapus.validar(pos.x, pos.y, planta.getPos().x, planta.getPos().y, 100)) {
+		if (EcosistemaPapus.validar(pos.x, pos.y, planta.getPos().x, planta.getPos().y, 120)) {
 			tx = planta.getPos();
 		}
 		if (EcosistemaPapus.validar(pos.x, pos.y, planta.getPos().x, planta.getPos().y, 50)) {
@@ -73,9 +121,12 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 					venom = true;
 				}
 			}
-			vida += 0.5f;
-		}
+			if (ciclo % 30 == 0) {
+				vida += 1;
 
+			}
+//			System.out.println(enfermedad);
+		}
 	}
 
 }

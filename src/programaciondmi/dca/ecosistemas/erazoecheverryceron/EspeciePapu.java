@@ -16,7 +16,6 @@ public class EspeciePapu extends EspecieAbstracta {
 	protected int velocidad;
 	protected float deff;
 
-	protected EspecieAbstracta parejaCercana;
 	protected PVector dir;
 	protected int ciclo;
 
@@ -50,7 +49,7 @@ public class EspeciePapu extends EspecieAbstracta {
 	protected void enfermarse() {
 		if (venom) {
 			if (ciclo % 60 * 5 == 0) {
-				vida -= enfermedad;
+				vida -= enfermedad/2;
 			}
 		}
 
@@ -60,6 +59,7 @@ public class EspeciePapu extends EspecieAbstracta {
 	public void run() {
 		while (vida > 0) {
 			mover();
+			enfermarse();
 			try {
 				Thread.sleep(33);
 				ciclo++;
@@ -82,9 +82,7 @@ public class EspeciePapu extends EspecieAbstracta {
 			dir.normalize();
 			dir.mult(velocidad);
 		}
-
 		pos.add(dir);
-
 	}
 
 	@Override
@@ -92,7 +90,7 @@ public class EspeciePapu extends EspecieAbstracta {
 		EspeciePapu papu = (EspeciePapu) lastimador;
 		PVector v = new PVector(papu.getX(), papu.getY());
 
-		if (EcosistemaPapus.validar(pos.x, pos.y, v.x, v.y, 10)) {
+		if (EcosistemaPapus.validar(pos.x, pos.y, v.x, v.y, 30)) {
 			if (this.venom == true) {
 				papu.setVenom(true);
 			}
@@ -133,5 +131,11 @@ public class EspeciePapu extends EspecieAbstracta {
 	public PVector getPos() {
 		return pos;
 	}
+
+	public void setPos(PVector pos) {
+		this.pos = pos;
+	}
+	
+	
 
 }
