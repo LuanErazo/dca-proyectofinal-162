@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import javafx.print.PageLayout;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
@@ -70,19 +71,31 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	@Override
 	public void dibujar() {
 		antiCamMov();
-
-		for (PlantaAbstracta planta : agregarPlantas) {
+		for (int i = 0; i < agregarPlantas.size(); i++) {
+			PlantaPapu planta = (PlantaPapu) agregarPlantas.get(i);
+			
 			planta.dibujar();
+
+			for (int j = 0; j < especies.size(); j++) {
+				EspeciePapu papulin = (EspeciePapu) especies.get(j);
+				if (planta.recibirDano(papulin)) {
+					planta.muerto(agregarPlantas, planta);
+				}
+			}
 		}
+		
+		
 		for (EspecieAbstracta especie : especies) {
 			especie.dibujar();
 			if (especie instanceof HerviboroPapu) {
-				for (int i = 0; i < agregarPlantas.size(); i++) {				
+				for (int i = 0; i < agregarPlantas.size(); i++) {
 					((HerviboroPapu) especie).comerPlanta(agregarPlantas.get(i));
 				}
 			}
 		}
-		generarPlantas();
+	
+
+	generarPlantas();
 
 	}
 
@@ -99,7 +112,7 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 		especies.add(nueva);
 		return especies;
 	}
-	
+
 	/**
 	 * Pobla con las plantas iniciales el lienzo
 	 */
@@ -154,6 +167,10 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 			camY++;
 
 		}
+	}
+	
+	public LinkedList<EspecieAbstracta> getHerviborospapus(){
+		return especies;
 	}
 
 	public static boolean validar(float XUno, float YUno, float XDos, float YDos, float distancia) {
