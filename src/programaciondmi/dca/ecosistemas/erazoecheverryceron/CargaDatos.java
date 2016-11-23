@@ -64,16 +64,16 @@ public class CargaDatos {
 		}
 		for (int i = 0; i < Cuatro.length; i++) {
 			if (i < 10) {
-				Cuatro[i] = app.loadImage("../data/Frontal/Cuatro/Cuatro0" + i + ".png");							
+				Cuatro[i] = app.loadImage("../data/Frontal/Cuarto/Cuarto0" + i + ".png");							
 			} else {
-				Cuatro[i] = app.loadImage("../data/Frontal/Cuatro/Cuatro" + i + ".png");							
+				Cuatro[i] = app.loadImage("../data/Frontal/Cuarto/Cuarto" + i + ".png");							
 			}
 		}
 		for (int i = 0; i < PrimeroEnfermo.length; i++) {
 			if (i < 10) {
-				PrimeroEnfermo[i] = app.loadImage("../data/Frontal/PrimeroEnfermo/PrimeroEnfermo0" + i + ".png");							
+				PrimeroEnfermo[i] = app.loadImage("../data/Frontal/PrimerEnfermo/PrimeroEnfermo0" + i + ".png");							
 			} else {
-				PrimeroEnfermo[i] = app.loadImage("../data/Frontal/PrimeroEnfermo/PrimeroEnfermo" + i + ".png");							
+				PrimeroEnfermo[i] = app.loadImage("../data/Frontal/PrimerEnfermo/PrimeroEnfermo" + i + ".png");							
 			}
 		}
 		for (int i = 0; i < SegundoEnfermo.length; i++) {
@@ -91,9 +91,9 @@ public class CargaDatos {
 			}
 		}		for (int i = 0; i < CuatroEnfermo.length; i++) {
 			if (i < 10) {
-				CuatroEnfermo[i] = app.loadImage("../data/Frontal/CuatroEnfermo/CuatroEnfermo0" + i + ".png");							
+				CuatroEnfermo[i] = app.loadImage("../data/Frontal/CuartoEnfermo/CuartoEnfermo0" + i + ".png");							
 			} else {
-				CuatroEnfermo[i] = app.loadImage("../data/Frontal/CuatroEnfermo/CuartoEnfermo" + i + ".png");							
+				CuatroEnfermo[i] = app.loadImage("../data/Frontal/CuartoEnfermo/CuartoEnfermo" + i + ".png");							
 			}
 		}
 		for (int i = 0; i < PrimeroEnfermitoFinal.length; i++) {
@@ -119,9 +119,9 @@ public class CargaDatos {
 		}
 		for (int i = 0; i < CuatroEnfermitoFinal.length; i++) {
 			if (i < 10) {
-				CuatroEnfermitoFinal[i] = app.loadImage("../data/Frontal/CuatroEnfermitoFinal/CuatroEnfermitoFinal0" + i + ".png");							
+				CuatroEnfermitoFinal[i] = app.loadImage("../data/Frontal/CuatroEnfermitoFinal/CuartoEnfermitoFinal0" + i + ".png");							
 			} else {
-				CuatroEnfermitoFinal[i] = app.loadImage("../data/Frontal/CuatroEnfermitoFinal/CuatroEnfermitoFinal" + i + ".png");							
+				CuatroEnfermitoFinal[i] = app.loadImage("../data/Frontal/CuatroEnfermitoFinal/CuartoEnfermitoFinal" + i + ".png");							
 			}
 		}
 		for (int i = 0; i < PrimeroPerfil.length; i++) {
