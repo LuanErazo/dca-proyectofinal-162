@@ -1,6 +1,7 @@
 package programaciondmi.dca.ecosistemas.erazoecheverryceron;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.core.PVector;
 import programaciondmi.dca.core.EcosistemaAbstracto;
 import programaciondmi.dca.core.EspecieAbstracta;
@@ -23,6 +24,8 @@ public class EspeciePapu extends EspecieAbstracta {
 
 	protected float enfermedad;
 	protected boolean venom;
+	
+	protected PImage[] imagenes;
 
 	public EspeciePapu(EcosistemaAbstracto ecosistema) {
 		super(ecosistema);
