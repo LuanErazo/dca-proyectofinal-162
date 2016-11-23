@@ -34,6 +34,7 @@ public class CargaDatos {
 	public static PImage[] SegundoPerfilEnfermitoFinal= new PImage[12];
 	public static PImage[] TerceroPerfilEnfermitoFinal= new PImage[12];
 	public static PImage[] CuatroPerfilEnfermitoFinal= new PImage[12];
+	public static PImage[] Bebe = new PImage[12];
 
 	public CargaDatos() {
 		app = EcosistemaPapus.app;
@@ -206,6 +207,13 @@ public class CargaDatos {
 				CuatroPerfilEnfermitoFinal[i] = app.loadImage("../data/Perfil/CuatroPerfilEnfermitoFinal/CuatroPerfilEnfermitoFinal0" + i + ".png");							
 			} else {
 				CuatroPerfilEnfermitoFinal[i] = app.loadImage("../data/Perfil/CuatroPerfilEnfermitoFinal/CuatroPerfilEnfermitoFinal" + i + ".png");							
+			}
+		}
+		for (int i = 0; i <Bebe.length; i++) {
+			if (i < 10) {
+				Bebe[i] = app.loadImage("../data/Frontal/Bebe/Bebe0" + i + ".png");							
+			} else {
+				Bebe[i] = app.loadImage("../data/Frontal/Bebe/Bebe" + i + ".png");							
 			}
 		}
 	}
