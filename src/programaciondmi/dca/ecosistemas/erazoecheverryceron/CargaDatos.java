@@ -126,86 +126,86 @@ public class CargaDatos {
 		}
 		for (int i = 0; i < PrimeroPerfil.length; i++) {
 			if (i < 10) {
-				PrimeroPerfil[i] = app.loadImage("../data/Frontal/PrimeroPerfil/PrimeroPerfil0" + i + ".png");							
+				PrimeroPerfil[i] = app.loadImage("../data/Perfil/PrimeroPerfil/PrimeroPerfil0" + i + ".png");							
 			} else {
-				PrimeroPerfil[i] = app.loadImage("../data/Frontal/PrimeroPerfil/PrimeroPerfil" + i + ".png");							
+				PrimeroPerfil[i] = app.loadImage("../data/Perfil/PrimeroPerfil/PrimeroPerfil" + i + ".png");							
 			}
 		}
 		for (int i = 0; i < SegundoPerfil.length; i++) {
 			if (i < 10) {
-				SegundoPerfil[i] = app.loadImage("../data/Frontal/SegundoPerfil/SegundoPerfil0" + i + ".png");							
+				SegundoPerfil[i] = app.loadImage("../data/Perfil/SegundoPerfil/SegundoPerfil0" + i + ".png");							
 			} else {
-				SegundoPerfil[i] = app.loadImage("../data/Frontal/SegundoPerfil/SegundoPerfil" + i + ".png");							
+				SegundoPerfil[i] = app.loadImage("../data/Perfil/SegundoPerfil/SegundoPerfil" + i + ".png");							
 			}
 		}
 		for (int i = 0; i < TerceroPerfil.length; i++) {
 			if (i < 10) {
-				TerceroPerfil[i] = app.loadImage("../data/Frontal/TerceroPerfil/TerceroPerfil0" + i + ".png");							
+				TerceroPerfil[i] = app.loadImage("../data/Perfil/TerceroPerfil/TercerPerfil0" + i + ".png");							
 			} else {
-				TerceroPerfil[i] = app.loadImage("../data/Frontal/TerceroPerfil/TerceroPerfil" + i + ".png");							
+				TerceroPerfil[i] = app.loadImage("../data/Perfil/TerceroPerfil/TercerPerfil" + i + ".png");							
 			}
 		}
 		for (int i = 0; i < CuatroPerfil.length; i++) {
 			if (i < 10) {
-				CuatroPerfil[i] = app.loadImage("../data/Frontal/CuatroPerfil/CuatroPerfil0" + i + ".png");							
+				CuatroPerfil[i] = app.loadImage("../data/Perfil/CuartoPerfil/CuatroPerfil0" + i + ".png");							
 			} else {
-				CuatroPerfil[i] = app.loadImage("../data/Frontal/CuatroPerfil/CuatroPerfil" + i + ".png");							
+				CuatroPerfil[i] = app.loadImage("../data/Perfil/CuartoPerfil/CuatroPerfil" + i + ".png");							
 			}
 		}
 		for (int i = 0; i < PrimeroPerfilEnfermo.length; i++) {
 			if (i < 10) {
-				PrimeroPerfilEnfermo[i] = app.loadImage("../data/Frontal/PrimeroPerfilEnfermo/PrimeroPerfilEnfermo0" + i + ".png");							
+				PrimeroPerfilEnfermo[i] = app.loadImage("../data/Perfil/PrimeroPerfilEnfermo/PrimeroPerfilEnfermo0" + i + ".png");							
 			} else {
-				PrimeroPerfilEnfermo[i] = app.loadImage("../data/Frontal/PrimeroPerfilEnfermo/PrimeroPerfilEnfermo" + i + ".png");							
+				PrimeroPerfilEnfermo[i] = app.loadImage("../data/Perfil/PrimeroPerfilEnfermo/PrimeroPerfilEnfermo" + i + ".png");							
 			}
 		}
 		for (int i = 0; i <SegundoPerfilEnfermo.length; i++) {
 			if (i < 10) {
-				SegundoPerfilEnfermo[i] = app.loadImage("../data/Frontal/SegundoPerfilEnfermo/SegundoPerfilEnfermo0" + i + ".png");							
+				SegundoPerfilEnfermo[i] = app.loadImage("../data/Perfil/SegundoPerfilEnfermo/SegundoPerfilEnfermo0" + i + ".png");							
 			} else {
-				SegundoPerfilEnfermo[i] = app.loadImage("../data/Frontal/SegundoPerfilEnfermo/SegundoPerfilEnfermo" + i + ".png");							
+				SegundoPerfilEnfermo[i] = app.loadImage("../data/Perfil/SegundoPerfilEnfermo/SegundoPerfilEnfermo" + i + ".png");							
 			}
 		}
 		for (int i = 0; i <TerceroPerfilEnfermo.length; i++) {
 			if (i < 10) {
-				TerceroPerfilEnfermo[i] = app.loadImage("../data/Frontal/TerceroPerfilEnfermo/TerceroPerfilEnfermo0" + i + ".png");							
+				TerceroPerfilEnfermo[i] = app.loadImage("../data/Perfil/TercerPerfilEnfermo/TercerPerfilEnfermo0" + i + ".png");							
 			} else {
-				TerceroPerfilEnfermo[i] = app.loadImage("../data/Frontal/TerceroPerfilEnfermo/TerceroPerfilEnfermo" + i + ".png");							
+				TerceroPerfilEnfermo[i] = app.loadImage("../data/Perfil/TercerPerfilEnfermo/TercerPerfilEnfermo" + i + ".png");							
 			}
 		}
 		for (int i = 0; i <CuatroPerfilEnfermo.length; i++) {
 			if (i < 10) {
-				CuatroPerfilEnfermo[i] = app.loadImage("../data/Frontal/CuatroPerfilEnfermo/CuatroPerfilEnfermo0" + i + ".png");							
+				CuatroPerfilEnfermo[i] = app.loadImage("../data/Perfil/CuartoPerfilEnfermo/CuatroPerfilEnfermo0" + i + ".png");							
 			} else {
-				CuatroPerfilEnfermo[i] = app.loadImage("../data/Frontal/CuatroPerfilEnfermo/CuatroPerfilEnfermo" + i + ".png");							
+				CuatroPerfilEnfermo[i] = app.loadImage("../data/Perfil/CuartoPerfilEnfermo/CuatroPerfilEnfermo" + i + ".png");							
 			}
 		}
 		for (int i = 0; i <PrimeroPerfilEnfermitoFinal.length; i++) {
 			if (i < 10) {
-				PrimeroPerfilEnfermitoFinal[i] = app.loadImage("../data/Frontal/PrimeroPerfilEnfermitoFinal/PrimeroPerfilEnfermitoFinal0" + i + ".png");							
+				PrimeroPerfilEnfermitoFinal[i] = app.loadImage("../data/Perfil/PrimeroPerfilEnfermitoFinal/PrimeroPerfilEnfermitoFinal0" + i + ".png");							
 			} else {
-				PrimeroPerfilEnfermitoFinal[i] = app.loadImage("../data/Frontal/PrimeroPerfilEnfermitoFinal/PrimeroPerfilEnfermitoFinal" + i + ".png");							
+				PrimeroPerfilEnfermitoFinal[i] = app.loadImage("../data/Perfil/PrimeroPerfilEnfermitoFinal/PrimeroPerfilEnfermitoFinal" + i + ".png");							
 			}
 		}
 		for (int i = 0; i <SegundoPerfilEnfermitoFinal.length; i++) {
 			if (i < 10) {
-				SegundoPerfilEnfermitoFinal[i] = app.loadImage("../data/Frontal/SegundoPerfilEnfermitoFinal/SegundoPerfilEnfermitoFinal0" + i + ".png");							
+				SegundoPerfilEnfermitoFinal[i] = app.loadImage("../data/Perfil/SegundoPerfilEnfermitoFinal/SegundoPerfilEnfermitoFinal0" + i + ".png");							
 			} else {
-				SegundoPerfilEnfermitoFinal[i] = app.loadImage("../data/Frontal/SegundoPerfilEnfermitoFinal/SegundoPerfilEnfermitoFinal" + i + ".png");							
+				SegundoPerfilEnfermitoFinal[i] = app.loadImage("../data/Perfil/SegundoPerfilEnfermitoFinal/SegundoPerfilEnfermitoFinal" + i + ".png");							
 			}
 		}
 		for (int i = 0; i <TerceroPerfilEnfermitoFinal.length; i++) {
 			if (i < 10) {
-				TerceroPerfilEnfermitoFinal[i] = app.loadImage("../data/Frontal/TerceroPerfilEnfermitoFinal/TerceroPerfilEnfermitoFinal0" + i + ".png");							
+				TerceroPerfilEnfermitoFinal[i] = app.loadImage("../data/Perfil/TercerPerfilEnfermitoFinal/TercerPerfilEnfermitoFinal0" + i + ".png");							
 			} else {
-				TerceroPerfilEnfermitoFinal[i] = app.loadImage("../data/Frontal/TerceroPerfilEnfermitoFinal/TerceroPerfilEnfermitoFinal" + i + ".png");							
+				TerceroPerfilEnfermitoFinal[i] = app.loadImage("../data/Perfil/TercerPerfilEnfermitoFinal/TercerPerfilEnfermitoFinal" + i + ".png");							
 			}
 		}
 		for (int i = 0; i <CuatroPerfilEnfermitoFinal.length; i++) {
 			if (i < 10) {
-				CuatroPerfilEnfermitoFinal[i] = app.loadImage("../data/Frontal/CuatroPerfilEnfermitoFinal/CuatroPerfilEnfermitoFinal0" + i + ".png");							
+				CuatroPerfilEnfermitoFinal[i] = app.loadImage("../data/Perfil/CuatroPerfilEnfermitoFinal/CuatroPerfilEnfermitoFinal0" + i + ".png");							
 			} else {
-				CuatroPerfilEnfermitoFinal[i] = app.loadImage("../data/Frontal/CuatroPerfilEnfermitoFinal/CuatroPerfilEnfermitoFinal" + i + ".png");							
+				CuatroPerfilEnfermitoFinal[i] = app.loadImage("../data/Perfil/CuatroPerfilEnfermitoFinal/CuatroPerfilEnfermitoFinal" + i + ".png");							
 			}
 		}
 	}
