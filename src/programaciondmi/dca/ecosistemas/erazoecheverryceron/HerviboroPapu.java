@@ -46,13 +46,16 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 //			// System.out.println("YY");
 //			imagenes = CargaDatos.Segundo;
 //		}
+		app.imageMode(PConstants.CENTER);
 		if (venom) {
 			imagenes = CargaDatos.SegundoEnfermo;
+			app.image(imagenes[time], pos.x, pos.y);
+
 		} else{
 			imagenes = CargaDatos.Segundo;
+			app.image(imagenes[time], pos.x, pos.y, imagenes[time].width/2, imagenes[time].height/2);
+
 		}
-		app.imageMode(PConstants.CENTER);
-		app.image(imagenes[time], pos.x, pos.y, imagenes[time].width/2, imagenes[time].height/2);
 		// for (int i = 0; i < imagenes.length; i++) {
 		// System.out.println(i);
 		// app.image(imagenes[i], pos.x, pos.y);
@@ -66,7 +69,7 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 		ecosistema.agregarEspecie(hijo);
 		return hijo;
 	}
-	}
+	
 
 	@Override
 	public void mover() {
@@ -82,6 +85,7 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 				if (EcosistemaPapus.validar(pos.x, pos.y, tx.x, tx.y, 100)) {
 					dir = PVector.sub(tx, pos);
 				}
+			}
 				// for (int i = 0; i < ecosistema.getEspecies().size(); i++) {
 				// EspeciePapu papu = (EspeciePapu)
 				// ecosistema.getEspecies().get(i);
@@ -110,8 +114,7 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 				sexo = true;
 			}
 		}
-	}
-
+	
 	public void apareable() {
 		if (ecosistema.getEspecies().size() > 0) {
 			for (int i = 0; i < ecosistema.getEspecies().size(); i++) {
