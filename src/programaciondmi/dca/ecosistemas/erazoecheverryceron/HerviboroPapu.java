@@ -1,5 +1,6 @@
 package programaciondmi.dca.ecosistemas.erazoecheverryceron;
 
+import processing.core.PConstants;
 import processing.core.PVector;
 import programaciondmi.dca.core.EcosistemaAbstracto;
 import programaciondmi.dca.core.EspecieAbstracta;
@@ -26,23 +27,17 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 
 	@Override
 	public void dibujar() {
-//		for (int i = 0; i < imagenes.length; i++) {
-//			System.out.println(i);
-//			app.image(imagenes[i], pos.x, pos.y);
-//		}
-		if (app.frameCount%1 == 0) {
+		if (app.frameCount% 2 == 0) {
 			time ++;
 			if (time >= imagenes.length) {
 				time = 0;
 			}
 		}
 		
-		if (pos.x < temporal().x) {
-			System.out.println("entra");
-			imagenes = CargaDatos.SegundoPerfil;
-		}
-		app.imageMode(app.CENTER);
+		app.imageMode(PConstants.CENTER);
 		app.image(imagenes[time], pos.x, pos.y);
+		app.fill(30,50,60);
+		app.ellipse(dir.x, dir.y, 20, 20);
 	}
 
 	@Override
@@ -64,6 +59,19 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 //			int targetY = (int) (Math.random() * app.height);
 //			PVector target = new PVector(targetX, targetY);
 			dir = PVector.sub(temporal(), pos);
+			if (pos.x < temporal().x) {
+				System.out.println("entra");
+				imagenes = CargaDatos.SegundoPerfil;
+			} else if (pos.y < temporal().y) {
+				System.out.println("YY");
+				imagenes = CargaDatos.Segundo;
+			} else if (pos.y > temporal().y) {
+				System.out.println("YY");
+				imagenes = CargaDatos.Segundo;
+			} else if (pos.x > temporal().x) {
+				System.out.println("YY");
+				imagenes = CargaDatos.Segundo;
+			}
 //			if (tx != null) {
 //				if (EcosistemaPapus.validar(pos.x, pos.y, tx.x, tx.y, 100)) {
 //					dir = PVector.sub(tx, pos);
