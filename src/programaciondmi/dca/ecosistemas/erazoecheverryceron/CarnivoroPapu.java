@@ -103,8 +103,9 @@ public class CarnivoroPapu extends EspeciePapu implements ICarnivoro {
 						velocidad += papuV.getBuffo(ram);
 						papuV.noneBuffo(ram);
 					}
-					
-					vida += papuV.getVida();
+					if (ciclo % 30 == 0) {
+						vida += 1;
+					}
 				}
 			}
 
