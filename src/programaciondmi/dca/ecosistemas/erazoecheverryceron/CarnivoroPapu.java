@@ -36,36 +36,24 @@ public class CarnivoroPapu extends EspeciePapu implements ICarnivoro {
 	}
 
 	public void dibujar() {
-		if (app.frameCount% 2 == 0) {
-			time ++;
+		if (app.frameCount % 2 == 0) {
+			time++;
 			if (time >= imagenes.length) {
 				time = 0;
 			}
 		}
-		
+
 		app.imageMode(PConstants.CENTER);
 		app.image(imagenes[time], pos.x, pos.y);
-		app.fill(30,50,60);
-		app.ellipse(dir.x, dir.y, 20, 20);
-//		for (int i = 0; i < imagenes.length; i++) {
-//			System.out.println(i);
-//			app.image(imagenes[i], pos.x, pos.y);
-//		}
-		if (app.frameCount%1 == 0) {
-			time ++;
-			if (time >= imagenes.length) {
-				time = 0;
-			}
-		}
-		
+
 		if (pos.x < temporal().x) {
 			System.out.println("entra");
 			imagenes = CargaDatos.CuatroPerfil;
 		}
 		app.imageMode(app.CENTER);
 		app.image(imagenes[time], pos.x, pos.y);
-	}	
-	
+	}
+
 	@Override
 	public void mover() {
 		if (caceria == false) {
@@ -91,37 +79,34 @@ public class CarnivoroPapu extends EspeciePapu implements ICarnivoro {
 
 	@Override
 	public void comer(EspecieAbstracta victima) {
-		EspeciePapu  papuV = (EspeciePapu) victima;
+		EspeciePapu papuV = (EspeciePapu) victima;
 		PVector v = new PVector(papuV.getX(), papuV.getY());
-		if (EcosistemaPapus.validar(pos.x, pos.y, v.x, v.y, 50)) {
-			if (victima instanceof HerviboroPapu) {
+		if (victima instanceof HerviboroPapu) {
+			if (EcosistemaPapus.validar(pos.x, pos.y, v.x, v.y, 50)) {
 				caceria = true;
 				tx = v;
-				if (EcosistemaPapus.validar(pos.x, pos.y, v.x, v.y, 10)) {
-					int ram = (int) app.random(3);
-					
-					if (ram == 0) {
-						fuerza += papuV.getBuffo(ram);
-						papuV.noneBuffo(ram);
-					}
-					
-					if (ram == 1){
-						deff += papuV.getBuffo(ram);
-						papuV.noneBuffo(ram);
+				int ram = (int) app.random(3);
 
-					}
-					
-					if (ram == 2) {
-						velocidad += papuV.getBuffo(ram);
-						papuV.noneBuffo(ram);
-					}
-					
-					vida += papuV.getVida();
+				if (ram == 0) {
+					fuerza += papuV.getBuffo(ram);
+					papuV.noneBuffo(ram);
 				}
+
+				if (ram == 1) {
+					deff += papuV.getBuffo(ram);
+					papuV.noneBuffo(ram);
+
+				}
+
+				if (ram == 2) {
+					velocidad += papuV.getBuffo(ram);
+					papuV.noneBuffo(ram);
+				}
+
+				vida += papuV.getVida();
 			}
 
 		}
-
 
 	}
 
