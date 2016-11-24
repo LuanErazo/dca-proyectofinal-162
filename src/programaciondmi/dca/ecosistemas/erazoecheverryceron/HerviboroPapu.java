@@ -33,36 +33,30 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 				time = 0;
 			}
 		}
-		if (pos.x < temporal().x) {
-			// System.out.println("entra");
-			imagenes = CargaDatos.SegundoPerfil;
-		} else if (pos.y < temporal().y) {
-			// System.out.println("YY");
-			imagenes = CargaDatos.Segundo;
-		} else if (pos.y > temporal().y) {
-			// System.out.println("YY");
-			imagenes = CargaDatos.Segundo;
-		} else if (pos.x > temporal().x) {
-			// System.out.println("YY");
+//		if (pos.x < temporal().x) {
+//			// System.out.println("entra");
+//			imagenes = CargaDatos.SegundoPerfil;
+//		} else if (pos.y < temporal().y) {
+//			// System.out.println("YY");
+//			imagenes = CargaDatos.Segundo;
+//		} else if (pos.y > temporal().y) {
+//			// System.out.println("YY");
+//			imagenes = CargaDatos.Segundo;
+//		} else if (pos.x > temporal().x) {
+//			// System.out.println("YY");
+//			imagenes = CargaDatos.Segundo;
+//		}
+		if (venom) {
+			imagenes = CargaDatos.SegundoEnfermo;
+		} else{
 			imagenes = CargaDatos.Segundo;
 		}
 		app.imageMode(PConstants.CENTER);
-		app.image(imagenes[time], pos.x, pos.y);
-		app.fill(30, 50, 60);
-		app.ellipse(dir.x, dir.y, 20, 20);
+		app.image(imagenes[time], pos.x, pos.y, imagenes[time].width/2, imagenes[time].height/2);
 		// for (int i = 0; i < imagenes.length; i++) {
 		// System.out.println(i);
 		// app.image(imagenes[i], pos.x, pos.y);
 		// }
-		if (app.frameCount % 2 == 0) {
-			time++;
-			if (time >= imagenes.length) {
-				time = 0;
-			}
-		}
-
-		app.imageMode(app.CENTER);
-		app.image(imagenes[time], pos.x, pos.y);
 	}
 
 	@Override
