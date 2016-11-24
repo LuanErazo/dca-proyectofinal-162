@@ -22,9 +22,16 @@ public class OmnivoroPapu extends EspeciePapu implements IOmnivoro {
 				time = 0;
 			}
 		}
-		
 		app.imageMode(PConstants.CENTER);
-		app.image(imagenes[time], pos.x, pos.y);
+		if (venom) {
+			imagenes = CargaDatos.TerceroEnfermo;
+			app.image(imagenes[time], pos.x, pos.y);
+
+		} else{
+			imagenes = CargaDatos.Tercero;
+			app.image(imagenes[time], pos.x, pos.y, imagenes[time].width/2, imagenes[time].height/2);
+
+		}
 //		for (int i = 0; i < imagenes.length; i++) {
 //			System.out.println(i);
 //			app.image(imagenes[i], pos.x, pos.y);
