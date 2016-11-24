@@ -154,19 +154,42 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 
 	@Override
 	protected List<PlantaAbstracta> generarPlantas() {
-		if (app.mousePressed && (app.mouseButton == PConstants.LEFT)) {
-			Mundo.ObtenerInstancia().getPlantas()
-					.add(new PBuena(app.mouseX - ((app.width / 2) - camX), app.mouseY - ((app.height / 2) - camY)));
-
-		} else if (app.mousePressed && (app.mouseButton == PConstants.RIGHT)) {
-
-			Mundo.ObtenerInstancia().getPlantas()
-					.add(new PMala(app.mouseX - ((app.width / 2) - camX), app.mouseY - ((app.height / 2) - camY)));
-
+//		if (app.mousePressed && (app.mouseButton == PConstants.LEFT)) {
+//			Mundo.ObtenerInstancia().getPlantas()
+//					.add(new PBuena(app.mouseX - ((app.width / 2) - camX), app.mouseY - ((app.height / 2) - camY)));
+//
+//		} else if (app.mousePressed && (app.mouseButton == PConstants.RIGHT)) {
+//
+//			Mundo.ObtenerInstancia().getPlantas()
+//					.add(new PMala(app.mouseX - ((app.width / 2) - camX), app.mouseY - ((app.height / 2) - camY)));
+//
+//		}
+		if (app.mouseButton == PConstants.LEFT) {
+			for (int i = 0; i < 1; i++) {
+				PBuena plantaV = new PBuena((int) app.random(20, app.width), (int) app.random(50, app.height));
+				// System.out.println(app.mouseX + " " + app.mouseY);
+//				plantaV = new PBuena((int) app.random(app.mouseX - 1800, app.mouseX + 400),
+//						(int) app.random(50, app.height));
+//				plantas.add(plantaV);
+				agregarPlanta(plantaV);
+				// System.out.println("Planta Buena");
+			}
 		}
-		return agregarPlantas;
-	}
 
+		if (app.mouseButton == PConstants.RIGHT) {
+			for (int i = 0; i < 1; i++) {
+				PMala plantaRoja = new PMala((int) app.random(20, app.width), (int) app.random(50, app.height));
+//				plantaRoja = new PMala((int) app.random(app.mouseX - 1800, app.mouseX + 400),
+//						(int) app.random(50, app.height));
+//				plantas.add(plantaRoja);
+				agregarPlanta(plantaRoja);
+				// System.out.println("Planta Mala");
+			}
+		}
+		return plantas;
+	}
+	
+	
 	private void antiCamMov() {
 
 		if (app.mouseX < app.width / 4) {
