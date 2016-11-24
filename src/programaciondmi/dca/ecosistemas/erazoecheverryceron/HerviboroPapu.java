@@ -87,7 +87,7 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 			}
 			dir.normalize();
 			dir.mult(velocidad);
-		}
+		
 		
 		pos.add(dir);
 		if (ciclo % 60*5 == 0) {
