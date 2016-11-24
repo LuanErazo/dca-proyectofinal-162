@@ -52,6 +52,10 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 			Thread especie = new Thread(especieAbstracta);
 			especie.start();
 		}
+//		for (PlantaAbstracta plantaAbstracta : agregarPlantas) {
+//			Thread planta = new Thread(plantaAbstracta);
+//			planta.start();
+//		}
 	}
 
 	/**
@@ -84,12 +88,15 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 			}
 		}
 		
-		
-		for (EspecieAbstracta especie : especies) {
-			especie.dibujar();
-			if (especie instanceof HerviboroPapu) {
-				for (int i = 0; i < agregarPlantas.size(); i++) {
-					((HerviboroPapu) especie).comerPlanta(agregarPlantas.get(i));
+		synchronized (especies) {
+			Iterator<EspecieAbstracta> iteradorEspecies = especies.iterator();
+			while(iteradorEspecies.hasNext()){
+				EspecieAbstracta actual = iteradorEspecies.next();
+				actual.dibujar();
+				if (actual instanceof HerviboroPapu) {
+					for (int i = 0; i < agregarPlantas.size(); i++) {
+						((HerviboroPapu) actual).comerPlanta(agregarPlantas.get(i));
+					}
 				}
 			}
 		}
@@ -107,6 +114,10 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	protected LinkedList<EspecieAbstracta> poblarEspecies() {
 		especies = new LinkedList<EspecieAbstracta>();
 		EspeciePapu nueva = new HerviboroPapu(this);
+		especies.add(nueva);
+		nueva = new HerviboroPapu(this);
+		especies.add(nueva);
+		nueva = new HerviboroPapu(this);
 		especies.add(nueva);
 		nueva = new HerviboroPapu(this);
 		especies.add(nueva);
