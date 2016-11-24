@@ -31,9 +31,9 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	public EcosistemaPapus() {
 		app = Mundo.ObtenerInstancia().getApp();
 		datos = new CargaDatos();
-		 Mundo ref = Mundo.ObtenerInstancia();
-		 Logo boton= new Logo("../data/Logo.svg", this);
-		 ref.agregarBoton(boton);
+		Mundo ref = Mundo.ObtenerInstancia();
+		Logo boton = new Logo("../data/Logo.svg", this);
+		ref.agregarBoton(boton);
 
 		app.imageMode(PConstants.CENTER);
 
@@ -69,28 +69,27 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	public void dibujar() {
 		antiCamMov();
 		for (int i = 0; i < agregarPlantas.size(); i++) {
-			PlantaPapu planta = (PlantaPapu) agregarPlantas.get(i);
-			
-			planta.dibujar();
 
-			for (int j = 0; j < especiesPapu.size(); j++) {
-				EspeciePapu papulin = (EspeciePapu) especiesPapu.get(j);
-				if (planta.recibirDano(papulin)) {
-					planta.muerto(agregarPlantas, planta);
-				}
-			}
 		}
 		synchronized (Mundo.ObtenerInstancia().getPlantas()) {
 			Iterator<PlantaAbstracta> iteradorPlantas = Mundo.ObtenerInstancia().getPlantas().iterator();
-			while(iteradorPlantas.hasNext()){
+			while (iteradorPlantas.hasNext()) {
 				PlantaAbstracta actual = iteradorPlantas.next();
 				actual.dibujar();
+
+				for (int j = 0; j < especies.size(); j++) {
+					EspeciePapu papulin = (EspeciePapu) especiesPapu.get(j);
+					if (actual.recibirDano(papulin)) {
+						((PlantaPapu) actual)
+								.muerto((LinkedList<PlantaAbstracta>) Mundo.ObtenerInstancia().getPlantas(), actual);
+					}
+				}
 			}
 		}
-		
+
 		synchronized (especies) {
 			Iterator<EspecieAbstracta> iteradorEspecies = especies.iterator();
-			while(iteradorEspecies.hasNext()){
+			while (iteradorEspecies.hasNext()) {
 				EspecieAbstracta actual = iteradorEspecies.next();
 				actual.dibujar();
 				if (actual instanceof HerviboroPapu) {
@@ -100,9 +99,8 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 				}
 			}
 		}
-	
 
-	generarPlantas();
+		generarPlantas();
 
 	}
 
@@ -113,16 +111,14 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	@Override
 	protected LinkedList<EspecieAbstracta> poblarEspecies() {
 		especiesPapu = new LinkedList<EspecieAbstracta>();
-		EspeciePapu nueva = new HerviboroPapu(this);
-		especiesPapu.add(nueva);
-		nueva = new HerviboroPapu(this);
-		especiesPapu.add(nueva);
-		nueva = new HerviboroPapu(this);
-		especiesPapu.add(nueva);
-		nueva = new HerviboroPapu(this);
-		especiesPapu.add(nueva);
-		nueva = new CarnivoroPapu(this);
-		especiesPapu.add(nueva);
+
+		for (int i = 0; i < 2; i++) {
+			especiesPapu.add(new HerviboroPapu(this));
+			especiesPapu.add(new CanibalPapu(this));
+			especiesPapu.add(new CarnivoroPapu(this));
+			especiesPapu.add(new OmnivoroPapu(this));
+
+		}
 		return especiesPapu;
 	}
 
@@ -135,8 +131,8 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 		agregarPlantas = new LinkedList<PlantaAbstracta>();
 		LinkedList<PlantaAbstracta> plantasIniciales = new LinkedList<PlantaAbstracta>();
 		for (int i = 0; i < 10; i++) {
-			plantasIniciales.add(new PMala((int)(Math.random()*1000),(int) (Math.random()*1000)));
-			plantasIniciales.add(new PBuena((int)(Math.random()*1000),(int) (Math.random()*1000)));
+			plantasIniciales.add(new PMala((int) (Math.random() * 1000), (int) (Math.random() * 1000)));
+			plantasIniciales.add(new PBuena((int) (Math.random() * 1000), (int) (Math.random() * 1000)));
 
 		}
 		agregarPlantas.addAll(plantasIniciales);
@@ -181,8 +177,8 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 
 		}
 	}
-	
-	public LinkedList<EspecieAbstracta> getHerviborospapus(){
+
+	public LinkedList<EspecieAbstracta> getHerviborospapus() {
 		return especiesPapu;
 	}
 
