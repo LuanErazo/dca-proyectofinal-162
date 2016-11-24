@@ -32,9 +32,9 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	 * Constructor
 	 */
 	public EcosistemaPapus() {
-		// Mundo ref = Mundo.ObtenerInstancia();
-		// Logo boton= new Logo("../data/botonPlantaBuena.png", this);
-		// ref.agregarBoton(boton);
+		 Mundo ref = Mundo.ObtenerInstancia();
+		 Logo boton= new Logo("../data/Logo.svg", this);
+		 ref.agregarBoton(boton);
 
 		app = Mundo.ObtenerInstancia().getApp();
 		datos = new CargaDatos();
