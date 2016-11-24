@@ -29,7 +29,6 @@ public class CarnivoroPapu extends EspeciePapu implements ICarnivoro {
 				Thread.sleep(33);
 				ciclo++;
 			} catch (Exception e) {
-				// TODO: handle exception
 			}
 		}
 
@@ -47,8 +46,16 @@ public class CarnivoroPapu extends EspeciePapu implements ICarnivoro {
 //			System.out.println("entra");
 			imagenes = CargaDatos.CuatroPerfil;
 		}
-		app.imageMode(app.CENTER);
-		app.image(imagenes[time], pos.x, pos.y,imagenes[time].width/2,imagenes[time].height/2);
+		app.imageMode(PConstants.CENTER);
+		if (venom) {
+			imagenes = CargaDatos.CuatroEnfermo;
+			app.image(imagenes[time], pos.x, pos.y);
+
+		} else{
+			imagenes = CargaDatos.Cuatro;
+			app.image(imagenes[time], pos.x, pos.y, imagenes[time].width/2, imagenes[time].height/2);
+
+		}
 	}	
 	
 	@Override
@@ -56,12 +63,11 @@ public class CarnivoroPapu extends EspeciePapu implements ICarnivoro {
 		if (caceria == false) {
 
 			if (ciclo % 60 * 2 == 0) {
-				System.out.println("el ciclo cumple");
 				// Definir una direccion aleatoria cada 3 segundos
-				int targetX = (int) (Math.random() * app.width);
-				int targetY = (int) (Math.random() * app.height);
-				PVector target = new PVector(targetX, targetY);
-				dir = PVector.sub(target, pos);
+//				int targetX = (int) (Math.random() * app.width);
+//				int targetY = (int) (Math.random() * app.height);
+//				PVector target = new PVector(targetX, targetY);
+				dir = PVector.sub(temporal(), pos);
 			}
 		} else {
 			dir = PVector.sub(tx, pos);
