@@ -1,6 +1,7 @@
 package programaciondmi.dca.ecosistemas.erazoecheverryceron;
 
 import processing.core.PConstants;
+import processing.core.PVector;
 import programaciondmi.dca.core.EcosistemaAbstracto;
 import programaciondmi.dca.core.EspecieAbstracta;
 import programaciondmi.dca.core.PlantaAbstracta;
@@ -22,9 +23,16 @@ public class OmnivoroPapu extends EspeciePapu implements IOmnivoro {
 				time = 0;
 			}
 		}
-		
 		app.imageMode(PConstants.CENTER);
-		app.image(imagenes[time], pos.x, pos.y);
+		if (venom) {
+			imagenes = CargaDatos.TerceroEnfermo;
+			app.image(imagenes[time], pos.x, pos.y);
+
+		} else{
+			imagenes = CargaDatos.Tercero;
+			app.image(imagenes[time], pos.x, pos.y, imagenes[time].width/2, imagenes[time].height/2);
+
+		}
 //		for (int i = 0; i < imagenes.length; i++) {
 //			System.out.println(i);
 //			app.image(imagenes[i], pos.x, pos.y);
@@ -37,10 +45,29 @@ public class OmnivoroPapu extends EspeciePapu implements IOmnivoro {
 		
 	}
 
-	@Override
 	public void comerPlanta(PlantaAbstracta victima) {
-		// TODO Auto-generated method stub
-		
+		PlantaPapu planta = (PlantaPapu) victima;
+		if (EcosistemaPapus.validar(pos.x, pos.y, planta.getX(), planta.getY(), 100)) {
+			tx = new PVector(planta.getX(), planta.getY());
+		}
+		if (EcosistemaPapus.validar(pos.x, pos.y, planta.getX(), planta.getY(), 50)) {
+			if (planta instanceof PBuena) {
+				enfermedad = ((PBuena) planta).getCure();
+				if (enfermedad <= 0) {
+					venom = false;
+				}
+			}
+			if (planta instanceof PMala) {
+				enfermedad = ((PMala) planta).getToxic();
+				if (enfermedad > 0) {
+					venom = true;
+				}
+			}
+			if (ciclo % 30 == 0) {
+				vida += 1;
+			}
+			// System.out.println(enfermedad);
+		}
 	}
 
 }
