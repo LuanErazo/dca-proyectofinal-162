@@ -11,29 +11,6 @@ public class PBuena extends PlantaPapu {
 	private float buffDef;
 	private float buffVel;
 
-	public PBuena() {
-		image = CargaDatos.PBuena;
-
-		cure = (float) (Math.random() * 20);
-		buffAtk = (float) (Math.random() * 10);
-		buffDef = (float) (Math.random() * 10);
-		buffVel = (float) (Math.random() * 10);
-
-		buffos = new float[3];
-		buffos[0] = buffAtk;
-		buffos[1] = buffDef;
-		buffos[2] = buffVel;
-		
-//		oWith = CargaDatos.PBuena.width / 2;
-//		oHeight = CargaDatos.PBuena.height / 2;
-		
-		
-		if (Math.random() > 0.5f) {
-			curing = true;
-		} else {
-			curing = false;
-		}
-	}
 
 	public PBuena(int x, int y) {
 		super(x, y);
@@ -63,7 +40,7 @@ public class PBuena extends PlantaPapu {
 
 	public void dibujar() {
 
-		app.image(image, x, y);
+		app.image(CargaDatos.PBuena, x, y);
 	}
 
 

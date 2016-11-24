@@ -27,32 +27,40 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 
 	@Override
 	public void dibujar() {
-		if (app.frameCount% 2 == 0) {
-			time ++;
+		if (app.frameCount % 2 == 0) {
+			time++;
 			if (time >= imagenes.length) {
 				time = 0;
 			}
 		}
-		
+		if (pos.x < temporal().x) {
+			// System.out.println("entra");
+			imagenes = CargaDatos.SegundoPerfil;
+		} else if (pos.y < temporal().y) {
+			// System.out.println("YY");
+			imagenes = CargaDatos.Segundo;
+		} else if (pos.y > temporal().y) {
+			// System.out.println("YY");
+			imagenes = CargaDatos.Segundo;
+		} else if (pos.x > temporal().x) {
+			// System.out.println("YY");
+			imagenes = CargaDatos.Segundo;
+		}
 		app.imageMode(PConstants.CENTER);
 		app.image(imagenes[time], pos.x, pos.y);
-		app.fill(30,50,60);
+		app.fill(30, 50, 60);
 		app.ellipse(dir.x, dir.y, 20, 20);
-//		for (int i = 0; i < imagenes.length; i++) {
-//			System.out.println(i);
-//			app.image(imagenes[i], pos.x, pos.y);
-//		}
-		if (app.frameCount%1 == 0) {
-			time ++;
+		// for (int i = 0; i < imagenes.length; i++) {
+		// System.out.println(i);
+		// app.image(imagenes[i], pos.x, pos.y);
+		// }
+		if (app.frameCount % 2 == 0) {
+			time++;
 			if (time >= imagenes.length) {
 				time = 0;
 			}
 		}
-		
-		if (pos.x < temporal().x) {
-			System.out.println("entra");
-			imagenes = CargaDatos.SegundoPerfil;
-		}
+
 		app.imageMode(app.CENTER);
 		app.image(imagenes[time], pos.x, pos.y);
 	}
@@ -65,66 +73,48 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 		return hijo;
 	}
 
-	
-	
 	@Override
 	public void mover() {
 
 		if (ciclo % 60 * 3 == 0) {
 			// Definir una direccion aleatoria cada 3 segundos
-//			int targetX = (int) (Math.random() * app.width);
-//			int targetY = (int) (Math.random() * app.height);
-//			PVector target = new PVector(targetX, targetY);
+			// int targetX = (int) (Math.random() * app.width);
+			// int targetY = (int) (Math.random() * app.height);
+			// PVector target = new PVector(targetX, targetY);
 			dir = PVector.sub(temporal(), pos);
-			if (pos.x < temporal().x) {
-				System.out.println("entra");
-				imagenes = CargaDatos.SegundoPerfil;
-			} else if (pos.y < temporal().y) {
-				System.out.println("YY");
-				imagenes = CargaDatos.Segundo;
-			} else if (pos.y > temporal().y) {
-				System.out.println("YY");
-				imagenes = CargaDatos.Segundo;
-			} else if (pos.x > temporal().x) {
-				System.out.println("YY");
-				imagenes = CargaDatos.Segundo;
-			}
-//			if (tx != null) {
-//				if (EcosistemaPapus.validar(pos.x, pos.y, tx.x, tx.y, 100)) {
-//					dir = PVector.sub(tx, pos);
-//				}
-//				for (int i = 0; i < ecosistema.getEspecies().size(); i++) {
-//					EspeciePapu papu = (EspeciePapu) ecosistema.getEspecies().get(i);
-//					for (int j = 0; j < ecosistema.getEspecies().size(); j++) {
-//						EspeciePapu papulin = (EspeciePapu) ecosistema.getEspecies().get(j);
-//						if ( papu != papulin) {
-//							if (papu instanceof IApareable) {
-//								if (EcosistemaPapus.validar(pos.x, pos.y, papu.getPos().x, papu.getPos().y, 100)) {
-//									// tx = papu.getPos();
-//									dir = PVector.sub(papu.getPos(), pos);
-//									System.out.println("pareja >:V");
-//								}
-//							}
-//						}
-//					}
-//
-//				}
+
+			if (tx != null) {
+				if (EcosistemaPapus.validar(pos.x, pos.y, tx.x, tx.y, 100)) {
+					dir = PVector.sub(tx, pos);
+				}
+				// for (int i = 0; i < ecosistema.getEspecies().size(); i++) {
+				// EspeciePapu papu = (EspeciePapu)
+				// ecosistema.getEspecies().get(i);
+				// for (int j = 0; j < ecosistema.getEspecies().size(); j++) {
+				// EspeciePapu papulin = (EspeciePapu)
+				// ecosistema.getEspecies().get(j);
+				// if ( papu != papulin) {
+				// if (papu instanceof IApareable) {
+				// if (EcosistemaPapus.validar(pos.x, pos.y, papu.getPos().x,
+				// papu.getPos().y, 100)) {
+				// // tx = papu.getPos();
+				// dir = PVector.sub(papu.getPos(), pos);
+				// System.out.println("pareja >:V");
+				// }
+				// }
+				// }
+				// }
+				//
+				// }
 			}
 			dir.normalize();
 			dir.mult(velocidad);
-		
-		
-		pos.add(dir);
-		if (ciclo % 60*5 == 0) {
-			sexo = true;
+
+			pos.add(dir);
+			if (ciclo % 60 * 5 == 0) {
+				sexo = true;
+			}
 		}
-
-//		if (EcosistemaPapus.validar(pos.x, pos.y, dir.x, dir.y, 50)) {
-//			pos = tx;
-//		} else {
-//			pos.add(dir);
-//		}
-
 	}
 
 	public void apareable() {
@@ -135,33 +125,30 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 					if (papu instanceof IApareable) {
 						if (sexo) {
 							if (EcosistemaPapus.validar(pos.x, pos.y, papu.getPos().x, papu.getPos().y, 20)) {
-								ecosistema.agregarEspecie(aparear((IApareable)
-										papu));
-								ecosistema.getEspecies().add(aparear((IApareable)
-										papu));
+								ecosistema.agregarEspecie(aparear((IApareable) papu));
+								ecosistema.getEspecies().add(aparear((IApareable) papu));
 								sexo = false;
 							}
 						}
 					}
 				}
 			}
-//			if (tx != null) {
-//				if (EcosistemaPapus.validar(pos.x, pos.y, tx.x, tx.y, 100)) {
-//					dir = PVector.sub(tx, pos);
-//				}
-//				for (int i = 0; i < ecosistema.getEspecies().size(); i++) {
-//					EspeciePapu papu = (EspeciePapu) ecosistema.getEspecies().get(i);
-//					if (papu instanceof IApareable) {
-//						if (EcosistemaPapus.validar(pos.x, pos.y, papu.getPos().x, papu.getPos().y, 100)) {
-//							tx = papu.getPos();
-//							dir = PVector.sub(tx, dir);
-//							System.out.println("pareja >:V");
-//						}
-//					}
-//				}
-//			}
-			dir.normalize();
-			dir.mult(velocidad);
+			// if (tx != null) {
+			// if (EcosistemaPapus.validar(pos.x, pos.y, tx.x, tx.y, 100)) {
+			// dir = PVector.sub(tx, pos);
+			// }
+			// for (int i = 0; i < ecosistema.getEspecies().size(); i++) {
+			// EspeciePapu papu = (EspeciePapu) ecosistema.getEspecies().get(i);
+			// if (papu instanceof IApareable) {
+			// if (EcosistemaPapus.validar(pos.x, pos.y, papu.getPos().x,
+			// papu.getPos().y, 100)) {
+			// tx = papu.getPos();
+			// dir = PVector.sub(tx, dir);
+			// System.out.println("pareja >:V");
+			// }
+			// }
+			// }
+			// }
 		}
 	}
 
@@ -170,7 +157,7 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 		while (vida > 0) {
 			mover();
 			enfermarse();
-			apareable();
+			// apareable();
 			try {
 				Thread.sleep(33);
 				ciclo++;
@@ -183,10 +170,10 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 	@Override
 	public void comerPlanta(PlantaAbstracta victima) {
 		PlantaPapu planta = (PlantaPapu) victima;
-		if (EcosistemaPapus.validar(pos.x, pos.y, planta.getPos().x, planta.getPos().y, 120)) {
-			tx = planta.getPos();
+		if (EcosistemaPapus.validar(pos.x, pos.y, planta.getX(), planta.getY(), 100)) {
+			tx = new PVector(planta.getX(), planta.getY());
 		}
-		if (EcosistemaPapus.validar(pos.x, pos.y, planta.getPos().x, planta.getPos().y, 50)) {
+		if (EcosistemaPapus.validar(pos.x, pos.y, planta.getX(), planta.getY(), 50)) {
 			if (planta instanceof PBuena) {
 				enfermedad = ((PBuena) planta).getCure();
 				if (enfermedad <= 0) {

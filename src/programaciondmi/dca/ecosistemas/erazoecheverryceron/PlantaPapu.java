@@ -14,7 +14,6 @@ import programaciondmi.dca.ejecucion.Mundo;
 
 public abstract class PlantaPapu extends PlantaAbstracta {
 
-	protected PVector pos;
 	protected float vida;
 	protected boolean vive;
 	protected PApplet app;
@@ -26,26 +25,10 @@ public abstract class PlantaPapu extends PlantaAbstracta {
 	protected long sleeping;
 	private int ciclo;
 
-	public PlantaPapu() {
-		app = Mundo.ObtenerInstancia().getApp();
-		fondo = app.loadShape("global_data/mapa.svg");
-		x = (int) (Math.random() * (fondo.width - 50)) - app.width / 2;
-		y = (int) (Math.random() * (fondo.height - 50)) - app.height / 2;
-		sleeping = 20;
-		pos = new PVector(x, y);
-		contCrecer = 1;
-		vive = true;
-		vida = 200;
-
-	}
-
 	public PlantaPapu(int x, int y) {
 		super(x, y);
-		app = EcosistemaPapus.app;
-		this.x = x;
-		this.y = y;
+		app = Mundo.ObtenerInstancia().getApp();
 		sleeping = 200;
-		pos = new PVector(x, y);
 		contCrecer = 1;
 		vive = true;
 		vida = 200;
@@ -92,7 +75,7 @@ public abstract class PlantaPapu extends PlantaAbstracta {
 	public boolean recibirDano(EspecieAbstracta lastimador) {
 		if (lastimador instanceof HerviboroPapu) {
 			HerviboroPapu hervi = (HerviboroPapu) lastimador;
-			if (EcosistemaPapus.validar(pos.x, pos.y, hervi.getPos().x, hervi.getPos().y, 50)) {
+			if (EcosistemaPapus.validar(x, y, hervi.getPos().x, hervi.getPos().y, 50)) {
 				return true;
 			}
 		}
@@ -118,7 +101,11 @@ public abstract class PlantaPapu extends PlantaAbstracta {
 		this.vive = vive;
 	}
 
-	public PVector getPos() {
-		return pos;
+	public int getX() {
+		return x;
 	}
+	public int getY() {
+		return y;
+	}
+	
 }

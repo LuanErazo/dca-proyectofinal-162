@@ -29,12 +29,12 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	 * Constructor
 	 */
 	public EcosistemaPapus() {
+		app = Mundo.ObtenerInstancia().getApp();
+		datos = new CargaDatos();
 		 Mundo ref = Mundo.ObtenerInstancia();
 		 Logo boton= new Logo("../data/Logo.svg", this);
 		 ref.agregarBoton(boton);
 
-		app = Mundo.ObtenerInstancia().getApp();
-		datos = new CargaDatos();
 		app.imageMode(PConstants.CENTER);
 
 		poblarPlantas();
@@ -80,6 +80,13 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 				}
 			}
 		}
+		synchronized (Mundo.ObtenerInstancia().getPlantas()) {
+			Iterator<PlantaAbstracta> iteradorPlantas = Mundo.ObtenerInstancia().getPlantas().iterator();
+			while(iteradorPlantas.hasNext()){
+				PlantaAbstracta actual = iteradorPlantas.next();
+				actual.dibujar();
+			}
+		}
 		
 		synchronized (especies) {
 			Iterator<EspecieAbstracta> iteradorEspecies = especies.iterator();
@@ -114,6 +121,8 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 		especiesPapu.add(nueva);
 		nueva = new HerviboroPapu(this);
 		especiesPapu.add(nueva);
+		nueva = new CarnivoroPapu(this);
+		especiesPapu.add(nueva);
 		return especiesPapu;
 	}
 
@@ -126,8 +135,8 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 		agregarPlantas = new LinkedList<PlantaAbstracta>();
 		LinkedList<PlantaAbstracta> plantasIniciales = new LinkedList<PlantaAbstracta>();
 		for (int i = 0; i < 10; i++) {
-			plantasIniciales.add(new PMala());
-			plantasIniciales.add(new PBuena());
+			plantasIniciales.add(new PMala((int)(Math.random()*1000),(int) (Math.random()*1000)));
+			plantasIniciales.add(new PBuena((int)(Math.random()*1000),(int) (Math.random()*1000)));
 
 		}
 		agregarPlantas.addAll(plantasIniciales);

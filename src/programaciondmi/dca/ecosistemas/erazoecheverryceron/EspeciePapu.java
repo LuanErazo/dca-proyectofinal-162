@@ -24,7 +24,7 @@ public class EspeciePapu extends EspecieAbstracta {
 
 	protected float enfermedad;
 	protected boolean venom;
-	
+
 	protected PImage[] imagenes;
 
 	public EspeciePapu(EcosistemaAbstracto ecosistema) {
@@ -52,7 +52,7 @@ public class EspeciePapu extends EspecieAbstracta {
 	protected void enfermarse() {
 		if (venom) {
 			if (ciclo % 60 * 5 == 0) {
-				vida -= enfermedad/2;
+				vida -= enfermedad / 2;
 			}
 		}
 
@@ -61,13 +61,12 @@ public class EspeciePapu extends EspecieAbstracta {
 	@Override
 	public void run() {
 		while (vida > 0) {
-//			mover();
+			 mover();
 			enfermarse();
 			try {
 				Thread.sleep(33);
 				ciclo++;
 			} catch (Exception e) {
-				// TODO: handle exception
 			}
 		}
 
@@ -77,38 +76,31 @@ public class EspeciePapu extends EspecieAbstracta {
 	public void mover() {
 		if (ciclo % 60 * 3 == 0) {
 			// Definir una direccion aleatoria cada 3 segundos
-//			int targetX = (int) (Math.random() * app.width);
-//			int targetY = (int) (Math.random() * app.height);
-//			PVector target = new PVector(targetX, targetY);
+			// int targetX = (int) (Math.random() * app.width);
+			// int targetY = (int) (Math.random() * app.height);
+			// PVector target = new PVector(targetX, targetY);
 			dir = PVector.sub(temporal(), pos);
 			dir.normalize();
 			dir.mult(velocidad);
 		}
 		pos.add(dir);
 	}
-	
 
 	@Override
 	public boolean recibirDano(EspecieAbstracta lastimador) {
-		EspeciePapu papu = (EspeciePapu) lastimador;
-		PVector v = new PVector(papu.getX(), papu.getY());
+		PVector v = new PVector(lastimador.getX(), lastimador.getY());
 
 		if (EcosistemaPapus.validar(pos.x, pos.y, v.x, v.y, 30)) {
-			if (this.venom == true) {
-				papu.setVenom(true);
-			}
 			return true;
-
 		}
-
 		return false;
 	}
 
 	public void noneBuffo(int i) {
 		this.buffos[i] = 0;
 	}
-	
-	protected PVector temporal(){
+
+	protected PVector temporal() {
 		PVector target = new PVector((int) (Math.random() * app.width), (int) (Math.random() * app.height));
 		return target;
 	}
@@ -142,7 +134,5 @@ public class EspeciePapu extends EspecieAbstracta {
 	public void setPos(PVector pos) {
 		this.pos = pos;
 	}
-	
-	
 
 }

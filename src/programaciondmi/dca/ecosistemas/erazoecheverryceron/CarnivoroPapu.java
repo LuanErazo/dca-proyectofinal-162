@@ -47,7 +47,7 @@ public class CarnivoroPapu extends EspeciePapu implements ICarnivoro {
 		app.image(imagenes[time], pos.x, pos.y);
 		
 		if (pos.x < temporal().x) {
-			System.out.println("entra");
+//			System.out.println("entra");
 			imagenes = CargaDatos.CuatroPerfil;
 		}
 		app.imageMode(app.CENTER);
