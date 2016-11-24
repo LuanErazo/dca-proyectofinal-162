@@ -1,5 +1,6 @@
 package programaciondmi.dca.ecosistemas.erazoecheverryceron;
 
+import processing.core.PConstants;
 import processing.core.PVector;
 import programaciondmi.dca.core.EcosistemaAbstracto;
 import programaciondmi.dca.core.EspecieAbstracta;
@@ -8,10 +9,11 @@ import programaciondmi.dca.core.interfaces.ICarnivoro;
 public class CarnivoroPapu extends EspeciePapu implements ICarnivoro {
 	private boolean caceria;
 	private PVector tx;
+	private int time;
 
 	public CarnivoroPapu(EcosistemaAbstracto ecosistema) {
 		super(ecosistema);
-
+		imagenes = CargaDatos.Cuatro;
 		velocidad = 5;
 		vida = 50;
 		fuerza = 30;
@@ -33,6 +35,37 @@ public class CarnivoroPapu extends EspeciePapu implements ICarnivoro {
 
 	}
 
+	public void dibujar() {
+		if (app.frameCount% 2 == 0) {
+			time ++;
+			if (time >= imagenes.length) {
+				time = 0;
+			}
+		}
+		
+		app.imageMode(PConstants.CENTER);
+		app.image(imagenes[time], pos.x, pos.y);
+		app.fill(30,50,60);
+		app.ellipse(dir.x, dir.y, 20, 20);
+//		for (int i = 0; i < imagenes.length; i++) {
+//			System.out.println(i);
+//			app.image(imagenes[i], pos.x, pos.y);
+//		}
+		if (app.frameCount%1 == 0) {
+			time ++;
+			if (time >= imagenes.length) {
+				time = 0;
+			}
+		}
+		
+		if (pos.x < temporal().x) {
+			System.out.println("entra");
+			imagenes = CargaDatos.CuatroPerfil;
+		}
+		app.imageMode(app.CENTER);
+		app.image(imagenes[time], pos.x, pos.y);
+	}	
+	
 	@Override
 	public void mover() {
 		if (caceria == false) {

@@ -1,16 +1,50 @@
 package programaciondmi.dca.ecosistemas.erazoecheverryceron;
 
+import processing.core.PConstants;
 import programaciondmi.dca.core.EcosistemaAbstracto;
 import programaciondmi.dca.core.EspecieAbstracta;
 import programaciondmi.dca.core.interfaces.ICanibal;
 
 public class CanibalPapu extends EspeciePapu implements ICanibal {
 
+	private int time;
+
 	public CanibalPapu(EcosistemaAbstracto ecosistema) {
 		super(ecosistema);
-		// TODO Auto-generated constructor stub
+		imagenes = CargaDatos.Primero;
 	}
 
+	public void dibujar() {
+		if (app.frameCount% 2 == 0) {
+			time ++;
+			if (time >= imagenes.length) {
+				time = 0;
+			}
+		}
+		
+		app.imageMode(PConstants.CENTER);
+		app.image(imagenes[time], pos.x, pos.y);
+		app.fill(30,50,60);
+		app.ellipse(dir.x, dir.y, 20, 20);
+//		for (int i = 0; i < imagenes.length; i++) {
+//			System.out.println(i);
+//			app.image(imagenes[i], pos.x, pos.y);
+//		}
+		if (app.frameCount%1 == 0) {
+			time ++;
+			if (time >= imagenes.length) {
+				time = 0;
+			}
+		}
+		
+		if (pos.x < temporal().x) {
+			System.out.println("entra");
+			imagenes = CargaDatos.PrimeroPerfil;
+		}
+		app.imageMode(app.CENTER);
+		app.image(imagenes[time], pos.x, pos.y);
+	}
+	
 	@Override
 	public void comer(EspecieAbstracta victima) {
 		// TODO Auto-generated method stub
