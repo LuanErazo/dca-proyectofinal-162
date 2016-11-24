@@ -78,10 +78,10 @@ public class EspeciePapu extends EspecieAbstracta {
 
 		if (ciclo % 60 * 3 == 0) {
 			// Definir una direccion aleatoria cada 3 segundos
-			int targetX = (int) (Math.random() * app.width);
-			int targetY = (int) (Math.random() * app.height);
-			PVector target = new PVector(targetX, targetY);
-			dir = PVector.sub(target, pos);
+//			int targetX = (int) (Math.random() * app.width);
+//			int targetY = (int) (Math.random() * app.height);
+//			PVector target = new PVector(targetX, targetY);
+			dir = PVector.sub(temporal(), pos);
 			dir.normalize();
 			dir.mult(velocidad);
 		}
@@ -107,7 +107,11 @@ public class EspeciePapu extends EspecieAbstracta {
 	public void noneBuffo(int i) {
 		this.buffos[i] = 0;
 	}
-
+	
+	protected PVector temporal(){
+		PVector target = new PVector((int) (Math.random() * app.width), (int) (Math.random() * app.height));
+		return target;
+	}
 	// ==========================getters and setters ======================
 
 	public float getBuffo(int i) {

@@ -11,11 +11,12 @@ import programaciondmi.dca.ecosistemas.sarmientomanzanomoncada.HijoBlanco;
 public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable {
 
 	private PVector tx;
+	private int time;
 
 	public HerviboroPapu(EcosistemaAbstracto ecosistema) {
 		super(ecosistema);
 		vida = 30;
-
+		imagenes = CargaDatos.Segundo;
 		fuerza = 10;
 		deff = 15;
 		velocidad = 3;
@@ -24,8 +25,23 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 	
 	@Override
 	public void dibujar() {
-		app.fill(50,200,199);
-		app.ellipse(pos.x, pos.y, 50, 50);
+//		for (int i = 0; i < imagenes.length; i++) {
+//			System.out.println(i);
+//			app.image(imagenes[i], pos.x, pos.y);
+//		}
+		if (app.frameCount%1 == 0) {
+			time ++;
+			if (time >= imagenes.length) {
+				time = 0;
+			}
+		}
+		
+		if (pos.x < temporal().x) {
+			System.out.println("entra");
+			imagenes = CargaDatos.SegundoPerfil;
+		}
+		app.imageMode(app.CENTER);
+		app.image(imagenes[time], pos.x, pos.y);
 	}
 
 	@Override
@@ -41,25 +57,25 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 
 		if (ciclo % 60 * 3 == 0) {
 			// Definir una direccion aleatoria cada 3 segundos
-			int targetX = (int) (Math.random() * app.width);
-			int targetY = (int) (Math.random() * app.height);
-			PVector target = new PVector(targetX, targetY);
-			dir = PVector.sub(target, pos);
-			if (tx != null) {
-				if (EcosistemaPapus.validar(pos.x, pos.y, tx.x, tx.y, 100)) {
-					dir = PVector.sub(tx, pos);
-				}
-				for (int i = 0; i < ecosistema.getEspecies().size(); i++) {
-					EspeciePapu papu = (EspeciePapu) ecosistema.getEspecies().get(i);
-					if (papu instanceof IApareable) {
-						if (EcosistemaPapus.validar(pos.x, pos.y, papu.getPos().x, papu.getPos().y, 100)) {
-							tx = papu.getPos();
-							dir = PVector.sub(tx, dir);
-							System.out.println("pareja >:V");
-						}
-					}
-				}
-			}
+//			int targetX = (int) (Math.random() * app.width);
+//			int targetY = (int) (Math.random() * app.height);
+//			PVector target = new PVector(targetX, targetY);
+			dir = PVector.sub(temporal(), pos);
+//			if (tx != null) {
+//				if (EcosistemaPapus.validar(pos.x, pos.y, tx.x, tx.y, 100)) {
+//					dir = PVector.sub(tx, pos);
+//				}
+//				for (int i = 0; i < ecosistema.getEspecies().size(); i++) {
+//					EspeciePapu papu = (EspeciePapu) ecosistema.getEspecies().get(i);
+//					if (papu instanceof IApareable) {
+//						if (EcosistemaPapus.validar(pos.x, pos.y, papu.getPos().x, papu.getPos().y, 100)) {
+//							tx = papu.getPos();
+//							dir = PVector.sub(tx, dir);
+//							System.out.println("pareja >:V");
+//						}
+//					}
+//				}
+//			}
 			dir.normalize();
 			dir.mult(velocidad);
 		}
