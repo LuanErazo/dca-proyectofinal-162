@@ -38,6 +38,23 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 		app.image(imagenes[time], pos.x, pos.y);
 		app.fill(30,50,60);
 		app.ellipse(dir.x, dir.y, 20, 20);
+//		for (int i = 0; i < imagenes.length; i++) {
+//			System.out.println(i);
+//			app.image(imagenes[i], pos.x, pos.y);
+//		}
+		if (app.frameCount%1 == 0) {
+			time ++;
+			if (time >= imagenes.length) {
+				time = 0;
+			}
+		}
+		
+		if (pos.x < temporal().x) {
+			System.out.println("entra");
+			imagenes = CargaDatos.SegundoPerfil;
+		}
+		app.imageMode(app.CENTER);
+		app.image(imagenes[time], pos.x, pos.y);
 	}
 
 	@Override
@@ -128,6 +145,23 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 					}
 				}
 			}
+//			if (tx != null) {
+//				if (EcosistemaPapus.validar(pos.x, pos.y, tx.x, tx.y, 100)) {
+//					dir = PVector.sub(tx, pos);
+//				}
+//				for (int i = 0; i < ecosistema.getEspecies().size(); i++) {
+//					EspeciePapu papu = (EspeciePapu) ecosistema.getEspecies().get(i);
+//					if (papu instanceof IApareable) {
+//						if (EcosistemaPapus.validar(pos.x, pos.y, papu.getPos().x, papu.getPos().y, 100)) {
+//							tx = papu.getPos();
+//							dir = PVector.sub(tx, dir);
+//							System.out.println("pareja >:V");
+//						}
+//					}
+//				}
+//			}
+			dir.normalize();
+			dir.mult(velocidad);
 		}
 	}
 
@@ -141,7 +175,6 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 				Thread.sleep(33);
 				ciclo++;
 			} catch (Exception e) {
-				// TODO: handle exception
 			}
 		}
 
