@@ -12,9 +12,6 @@ import processing.core.PImage;
 import programaciondmi.dca.core.EcosistemaAbstracto;
 import programaciondmi.dca.core.EspecieAbstracta;
 import programaciondmi.dca.core.PlantaAbstracta;
-import programaciondmi.dca.ecosistemas.sarmientomanzanomoncada.EspecieAzul;
-import programaciondmi.dca.ecosistemas.sarmientomanzanomoncada.EspecieBlanca;
-import programaciondmi.dca.ecosistemas.sarmientomanzanomoncada.LogoEjemplo;
 import programaciondmi.dca.ejecucion.Ejecutable;
 import programaciondmi.dca.ejecucion.Mundo;
 
@@ -26,7 +23,7 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	private int camX;
 	private int camY;
 	private LinkedList<PlantaAbstracta> agregarPlantas;
-	private LinkedList<EspecieAbstracta> especies;
+	private LinkedList<EspecieAbstracta> especiesPapu;
 
 	/**
 	 * Constructor
@@ -48,14 +45,10 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	 * Ejecuta las primeras plantas desde sus hilos
 	 */
 	private void CargaHilosPrimeros() {
-		for (EspecieAbstracta especieAbstracta : especies) {
+		for (EspecieAbstracta especieAbstracta : especiesPapu) {
 			Thread especie = new Thread(especieAbstracta);
 			especie.start();
 		}
-//		for (PlantaAbstracta plantaAbstracta : agregarPlantas) {
-//			Thread planta = new Thread(plantaAbstracta);
-//			planta.start();
-//		}
 	}
 
 	/**
@@ -80,8 +73,8 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 			
 			planta.dibujar();
 
-			for (int j = 0; j < especies.size(); j++) {
-				EspeciePapu papulin = (EspeciePapu) especies.get(j);
+			for (int j = 0; j < especiesPapu.size(); j++) {
+				EspeciePapu papulin = (EspeciePapu) especiesPapu.get(j);
 				if (planta.recibirDano(papulin)) {
 					planta.muerto(agregarPlantas, planta);
 				}
@@ -112,16 +105,16 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 
 	@Override
 	protected LinkedList<EspecieAbstracta> poblarEspecies() {
-		especies = new LinkedList<EspecieAbstracta>();
+		especiesPapu = new LinkedList<EspecieAbstracta>();
 		EspeciePapu nueva = new HerviboroPapu(this);
-		especies.add(nueva);
+		especiesPapu.add(nueva);
 		nueva = new HerviboroPapu(this);
-		especies.add(nueva);
+		especiesPapu.add(nueva);
 		nueva = new HerviboroPapu(this);
-		especies.add(nueva);
+		especiesPapu.add(nueva);
 		nueva = new HerviboroPapu(this);
-		especies.add(nueva);
-		return especies;
+		especiesPapu.add(nueva);
+		return especiesPapu;
 	}
 
 	/**
@@ -181,7 +174,7 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	}
 	
 	public LinkedList<EspecieAbstracta> getHerviborospapus(){
-		return especies;
+		return especiesPapu;
 	}
 
 	public static boolean validar(float XUno, float YUno, float XDos, float YDos, float distancia) {
