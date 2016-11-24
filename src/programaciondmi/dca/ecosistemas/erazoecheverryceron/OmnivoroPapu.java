@@ -44,6 +44,21 @@ public class OmnivoroPapu extends EspeciePapu implements IOmnivoro {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void mover() {
+		if (ciclo % 60 * 3 == 0) {
+			// Definir una direccion aleatoria cada 3 segundos
+			// int targetX = (int) (Math.random() * app.width);
+			// int targetY = (int) (Math.random() * app.height);
+			// PVector target = new PVector(targetX, targetY);
+			dir = PVector.sub(temporal(), pos);
+			System.out.println("entra");
+		}
+		dir.normalize();
+		dir.mult(velocidad);
+		pos.add(dir);
+	}
 
 	public void comerPlanta(PlantaAbstracta victima) {
 		PlantaPapu planta = (PlantaPapu) victima;

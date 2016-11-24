@@ -38,16 +38,19 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 		app.imageMode(PConstants.CENTER);
 
 		poblarPlantas();
-		CargaHilosPrimeros();
 	}
 
 	/**
 	 * Ejecuta las primeras plantas desde sus hilos
 	 */
 	private void CargaHilosPrimeros() {
-		for (EspecieAbstracta especieAbstracta : especiesPapu) {
-			Thread especie = new Thread(especieAbstracta);
-			especie.start();
+		synchronized (especies) {
+			for (EspecieAbstracta especieAbstracta : especies) {
+				Thread especie = new Thread(especieAbstracta);
+				if (especie.isAlive() == false) {
+					especie.start();
+				}
+			}			
 		}
 	}
 
@@ -55,11 +58,16 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	 * Ejecuta los hilos de las plantas que el usuario coloca
 	 */
 	private void CargaHilosSegundos() {
-		for (PlantaAbstracta plantaAbstracta : agregarPlantas) {
-			Thread plantita = new Thread(plantaAbstracta);
-			plantita.start();
+//		for (PlantaAbstracta plantaAbstracta : agregarPlantas) {
+//			Thread plantita = new Thread(plantaAbstracta);
+//			plantita.start();
+//		}
+		synchronized (especies) {
+			for (EspecieAbstracta especieAbstracta : especies) {
+				Thread especie = new Thread(especieAbstracta);
+				especie.start();
+			}			
 		}
-
 	}
 
 	/**
@@ -71,8 +79,8 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 		for (int i = 0; i < agregarPlantas.size(); i++) {
 
 		}
-		synchronized (Mundo.ObtenerInstancia().getPlantas()) {
-			Iterator<PlantaAbstracta> iteradorPlantas = Mundo.ObtenerInstancia().getPlantas().iterator();
+		synchronized (plantas) {
+			Iterator<PlantaAbstracta> iteradorPlantas = plantas.iterator();
 			while (iteradorPlantas.hasNext()) {
 				PlantaAbstracta actual = iteradorPlantas.next();
 				actual.dibujar();
@@ -147,12 +155,12 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	@Override
 	protected List<PlantaAbstracta> generarPlantas() {
 		if (app.mousePressed && (app.mouseButton == PConstants.LEFT)) {
-			agregarPlantas
+			Mundo.ObtenerInstancia().getPlantas()
 					.add(new PBuena(app.mouseX - ((app.width / 2) - camX), app.mouseY - ((app.height / 2) - camY)));
 
 		} else if (app.mousePressed && (app.mouseButton == PConstants.RIGHT)) {
 
-			agregarPlantas
+			Mundo.ObtenerInstancia().getPlantas()
 					.add(new PMala(app.mouseX - ((app.width / 2) - camX), app.mouseY - ((app.height / 2) - camY)));
 
 		}

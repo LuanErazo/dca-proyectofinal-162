@@ -11,7 +11,6 @@ import programaciondmi.dca.ecosistemas.sarmientomanzanomoncada.HijoBlanco;
 
 public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable {
 
-	private PVector tx;
 	private boolean sexo;
 	private int time;
 
@@ -76,9 +75,6 @@ public class HerviboroPapu extends EspeciePapu implements IHerbivoro, IApareable
 
 		if (ciclo % 60 * 3 == 0) {
 			// Definir una direccion aleatoria cada 3 segundos
-			// int targetX = (int) (Math.random() * app.width);
-			// int targetY = (int) (Math.random() * app.height);
-			// PVector target = new PVector(targetX, targetY);
 			dir = PVector.sub(temporal(), pos);
 
 			if (tx != null) {

@@ -10,7 +10,7 @@ import programaciondmi.dca.ejecucion.Mundo;
 public class EspeciePapu extends EspecieAbstracta {
 
 	protected PApplet app;
-	protected PVector pos;
+	protected PVector pos, tx;
 	protected float vida;
 
 	protected float fuerza;
@@ -41,6 +41,9 @@ public class EspeciePapu extends EspecieAbstracta {
 		buffos[1] = deff;
 		buffos[2] = velocidad;
 
+		Thread especie = new Thread(this);
+		especie.start();
+
 	}
 
 	@Override
@@ -61,7 +64,7 @@ public class EspeciePapu extends EspecieAbstracta {
 	@Override
 	public void run() {
 		while (vida > 0) {
-			 mover();
+			mover();
 			enfermarse();
 			try {
 				Thread.sleep(33);
@@ -80,9 +83,9 @@ public class EspeciePapu extends EspecieAbstracta {
 			// int targetY = (int) (Math.random() * app.height);
 			// PVector target = new PVector(targetX, targetY);
 			dir = PVector.sub(temporal(), pos);
-			dir.normalize();
-			dir.mult(velocidad);
 		}
+		dir.normalize();
+		dir.mult(velocidad);
 		pos.add(dir);
 	}
 

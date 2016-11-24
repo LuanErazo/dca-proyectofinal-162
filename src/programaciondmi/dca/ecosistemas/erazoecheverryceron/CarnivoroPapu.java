@@ -8,7 +8,6 @@ import programaciondmi.dca.core.interfaces.ICarnivoro;
 
 public class CarnivoroPapu extends EspeciePapu implements ICarnivoro {
 	private boolean caceria;
-	private PVector tx;
 	private int time;
 
 	public CarnivoroPapu(EcosistemaAbstracto ecosistema) {
@@ -21,18 +20,6 @@ public class CarnivoroPapu extends EspeciePapu implements ICarnivoro {
 
 	}
 
-	@Override
-	public void run() {
-		while (vida > 0) {
-			mover();
-			try {
-				Thread.sleep(33);
-				ciclo++;
-			} catch (Exception e) {
-			}
-		}
-
-	}
 
 	public void dibujar() {
 		if (app.frameCount% 2 == 0) {
