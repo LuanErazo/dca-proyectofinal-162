@@ -22,8 +22,6 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	private CargaDatos datos;
 	private int camX;
 	private int camY;
-	private LinkedList<PlantaAbstracta> agregarPlantas;
-	private LinkedList<EspecieAbstracta> especiesPapu;
 
 	/**
 	 * Constructor
@@ -50,7 +48,7 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 				if (especie.isAlive() == false) {
 					especie.start();
 				}
-			}			
+			}
 		}
 	}
 
@@ -58,15 +56,15 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	 * Ejecuta los hilos de las plantas que el usuario coloca
 	 */
 	private void CargaHilosSegundos() {
-//		for (PlantaAbstracta plantaAbstracta : agregarPlantas) {
-//			Thread plantita = new Thread(plantaAbstracta);
-//			plantita.start();
-//		}
+		// for (PlantaAbstracta plantaAbstracta : agregarPlantas) {
+		// Thread plantita = new Thread(plantaAbstracta);
+		// plantita.start();
+		// }
 		synchronized (especies) {
 			for (EspecieAbstracta especieAbstracta : especies) {
 				Thread especie = new Thread(especieAbstracta);
 				especie.start();
-			}			
+			}
 		}
 	}
 
@@ -76,9 +74,6 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 	@Override
 	public void dibujar() {
 		antiCamMov();
-		for (int i = 0; i < agregarPlantas.size(); i++) {
-
-		}
 		synchronized (plantas) {
 			Iterator<PlantaAbstracta> iteradorPlantas = plantas.iterator();
 			while (iteradorPlantas.hasNext()) {
@@ -86,30 +81,59 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 				actual.dibujar();
 
 				for (int j = 0; j < especies.size(); j++) {
-					EspeciePapu papulin = (EspeciePapu) especiesPapu.get(j);
+					EspeciePapu papulin = (EspeciePapu) especies.get(j);
 					if (actual.recibirDano(papulin)) {
-						((PlantaPapu) actual)
-								.muerto((LinkedList<PlantaAbstracta>) Mundo.ObtenerInstancia().getPlantas(), actual);
+						((PlantaPapu) actual).muerto(plantas, actual);
 					}
 				}
 			}
 		}
 
 		synchronized (especies) {
-			Iterator<EspecieAbstracta> iteradorEspecies = especies.iterator();
-			while (iteradorEspecies.hasNext()) {
-				EspecieAbstracta actual = iteradorEspecies.next();
+			for (int i = 0; i < especies.size(); i++) {
+				EspecieAbstracta actual = especies.get(i);
 				actual.dibujar();
+				if (actual instanceof EspeciePapu) {
+					if (((EspeciePapu) actual).getVida() < 0) {
+						especies.remove(actual);
+					}
+				}
 				if (actual instanceof HerviboroPapu) {
-					for (int i = 0; i < agregarPlantas.size(); i++) {
-						((HerviboroPapu) actual).comerPlanta(agregarPlantas.get(i));
+					for (int j = 0; j < plantas.size(); j++) {
+						((HerviboroPapu) actual).comerPlanta(plantas.get(j));
+
+					}
+				}
+				if (actual instanceof CarnivoroPapu) {
+					for (int j = 0; j < especies.size(); j++) {
+						EspecieAbstracta lolis = especies.get(j);
+						((CarnivoroPapu) actual).comer(lolis);
 					}
 				}
 			}
+//			Iterator<EspecieAbstracta> iteradorEspecies = especies.iterator();
+//			while (iteradorEspecies.hasNext()) {
+//				EspecieAbstracta actual = iteradorEspecies.next();
+//				// EspeciePapu papuE = (EspeciePapu) actual;
+//				actual.dibujar();
+//				if (actual instanceof EspeciePapu) {
+//					((EspeciePapu) actual).morir(especies, actual);
+//				}
+//				if (actual instanceof HerviboroPapu) {
+//					for (int i = 0; i < plantas.size(); i++) {
+//						((HerviboroPapu) actual).comerPlanta(plantas.get(i));
+//
+//					}
+//				}
+//				if (actual instanceof CarnivoroPapu) {
+//					for (int i = 0; i < especies.size(); i++) {
+//						EspecieAbstracta lolis = especies.get(i);
+//						((CarnivoroPapu) actual).comer(lolis);
+//					}
+//				}
+//			}
 		}
-
 		generarPlantas();
-
 	}
 
 	/**
@@ -118,7 +142,7 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 
 	@Override
 	protected LinkedList<EspecieAbstracta> poblarEspecies() {
-		especiesPapu = new LinkedList<EspecieAbstracta>();
+		LinkedList<EspecieAbstracta> especiesPapu = new LinkedList<EspecieAbstracta>();
 
 		for (int i = 0; i < 2; i++) {
 			especiesPapu.add(new HerviboroPapu(this));
@@ -136,7 +160,7 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 
 	@Override
 	protected LinkedList<PlantaAbstracta> poblarPlantas() {
-		agregarPlantas = new LinkedList<PlantaAbstracta>();
+		LinkedList<PlantaAbstracta> agregarPlantas = new LinkedList<PlantaAbstracta>();
 		LinkedList<PlantaAbstracta> plantasIniciales = new LinkedList<PlantaAbstracta>();
 		for (int i = 0; i < 10; i++) {
 			plantasIniciales.add(new PMala((int) (Math.random() * 1000), (int) (Math.random() * 1000)));
@@ -154,23 +178,27 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 
 	@Override
 	protected List<PlantaAbstracta> generarPlantas() {
-//		if (app.mousePressed && (app.mouseButton == PConstants.LEFT)) {
-//			Mundo.ObtenerInstancia().getPlantas()
-//					.add(new PBuena(app.mouseX - ((app.width / 2) - camX), app.mouseY - ((app.height / 2) - camY)));
-//
-//		} else if (app.mousePressed && (app.mouseButton == PConstants.RIGHT)) {
-//
-//			Mundo.ObtenerInstancia().getPlantas()
-//					.add(new PMala(app.mouseX - ((app.width / 2) - camX), app.mouseY - ((app.height / 2) - camY)));
-//
-//		}
+		// if (app.mousePressed && (app.mouseButton == PConstants.LEFT)) {
+		// Mundo.ObtenerInstancia().getPlantas()
+		// .add(new PBuena(app.mouseX - ((app.width / 2) - camX), app.mouseY -
+		// ((app.height / 2) - camY)));
+		//
+		// } else if (app.mousePressed && (app.mouseButton == PConstants.RIGHT))
+		// {
+		//
+		// Mundo.ObtenerInstancia().getPlantas()
+		// .add(new PMala(app.mouseX - ((app.width / 2) - camX), app.mouseY -
+		// ((app.height / 2) - camY)));
+		//
+		// }
 		if (app.mouseButton == PConstants.LEFT) {
 			for (int i = 0; i < 1; i++) {
 				PBuena plantaV = new PBuena((int) app.random(20, app.width), (int) app.random(50, app.height));
 				// System.out.println(app.mouseX + " " + app.mouseY);
-//				plantaV = new PBuena((int) app.random(app.mouseX - 1800, app.mouseX + 400),
-//						(int) app.random(50, app.height));
-//				plantas.add(plantaV);
+				// plantaV = new PBuena((int) app.random(app.mouseX - 1800,
+				// app.mouseX + 400),
+				// (int) app.random(50, app.height));
+				// plantas.add(plantaV);
 				agregarPlanta(plantaV);
 				// System.out.println("Planta Buena");
 			}
@@ -179,17 +207,17 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 		if (app.mouseButton == PConstants.RIGHT) {
 			for (int i = 0; i < 1; i++) {
 				PMala plantaRoja = new PMala((int) app.random(20, app.width), (int) app.random(50, app.height));
-//				plantaRoja = new PMala((int) app.random(app.mouseX - 1800, app.mouseX + 400),
-//						(int) app.random(50, app.height));
-//				plantas.add(plantaRoja);
+				// plantaRoja = new PMala((int) app.random(app.mouseX - 1800,
+				// app.mouseX + 400),
+				// (int) app.random(50, app.height));
+				// plantas.add(plantaRoja);
 				agregarPlanta(plantaRoja);
 				// System.out.println("Planta Mala");
 			}
 		}
 		return plantas;
 	}
-	
-	
+
 	private void antiCamMov() {
 
 		if (app.mouseX < app.width / 4) {
@@ -207,10 +235,6 @@ public class EcosistemaPapus extends EcosistemaAbstracto {
 			camY++;
 
 		}
-	}
-
-	public LinkedList<EspecieAbstracta> getHerviborospapus() {
-		return especiesPapu;
 	}
 
 	public static boolean validar(float XUno, float YUno, float XDos, float YDos, float distancia) {

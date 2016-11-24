@@ -2,6 +2,7 @@ package programaciondmi.dca.ecosistemas.erazoecheverryceron;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -56,7 +57,7 @@ public abstract class PlantaPapu extends PlantaAbstracta {
 		}
 	}
 
-	public void muerto(LinkedList<PlantaAbstracta> lista, PlantaAbstracta planta) {
+	public void muerto(List<PlantaAbstracta> lista, PlantaAbstracta planta) {
 		PlantaPapu plant = (PlantaPapu) planta;
 
 		if (ciclo % 60 * 2 == 0) {

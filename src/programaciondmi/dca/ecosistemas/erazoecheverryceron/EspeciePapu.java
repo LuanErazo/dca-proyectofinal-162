@@ -1,5 +1,8 @@
 package programaciondmi.dca.ecosistemas.erazoecheverryceron;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
@@ -26,6 +29,7 @@ public class EspeciePapu extends EspecieAbstracta {
 	protected boolean venom;
 
 	protected PImage[] imagenes;
+	protected boolean vive;
 
 	public EspeciePapu(EcosistemaAbstracto ecosistema) {
 		super(ecosistema);
@@ -137,5 +141,11 @@ public class EspeciePapu extends EspecieAbstracta {
 	public void setPos(PVector pos) {
 		this.pos = pos;
 	}
+
+	public boolean isVive() {
+		return vive;
+	}
+	
+	
 
 }

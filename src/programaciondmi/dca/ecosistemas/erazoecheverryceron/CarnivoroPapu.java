@@ -73,6 +73,8 @@ public class CarnivoroPapu extends EspeciePapu implements ICarnivoro {
 		PVector v = new PVector(papuV.getX(), papuV.getY());
 		if (victima instanceof HerviboroPapu) {
 		if (EcosistemaPapus.validar(pos.x, pos.y, v.x, v.y, 50)) {
+			System.out.println("shi");
+
 				caceria = true;
 				tx = v;
 				if (EcosistemaPapus.validar(pos.x, pos.y, v.x, v.y, 10)) {
